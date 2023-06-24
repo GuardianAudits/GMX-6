@@ -127,10 +127,6 @@ library OrderUtils {
 
         AccountUtils.validateReceiver(order.receiver());
 
-        if (order.initialCollateralDeltaAmount() == 0 && order.sizeDeltaUsd() == 0) {
-            revert Errors.EmptyOrder();
-        }
-
         CallbackUtils.validateCallbackGasLimit(dataStore, order.callbackGasLimit());
 
         uint256 estimatedGasLimit = GasUtils.estimateExecuteOrderGasLimit(dataStore, order);
@@ -151,11 +147,14 @@ library OrderUtils {
     // @dev executes an order
     // @param params BaseOrderUtils.ExecuteOrderParams
     function executeOrder(BaseOrderUtils.ExecuteOrderParams memory params) external {
+        // 63/64 gas is forwarded to external calls, reduce the startingGas to account for this
+        params.startingGas -= gasleft() / 63;
+
         OrderStoreUtils.remove(params.contracts.dataStore, params.key, params.order.account());
 
         BaseOrderUtils.validateNonEmptyOrder(params.order);
 
-        BaseOrderUtils.setExactOrderPrice(
+        BaseOrderUtils.validateOrderTriggerPrice(
             params.contracts.oracle,
             params.market.indexToken,
             params.order.orderType(),
@@ -163,10 +162,13 @@ library OrderUtils {
             params.order.isLong()
         );
 
-        processOrder(params);
+        EventUtils.EventLogData memory eventData = processOrder(params);
 
         // validate that internal state changes are correct before calling
         // external callbacks
+        // if the native token was transferred to the receiver in a swap
+        // it may be possible to invoke external contracts before the validations
+        // are called
         if (params.market.marketToken != address(0)) {
             MarketUtils.validateMarketTokenBalance(params.contracts.dataStore, params.market);
         }
@@ -174,7 +176,7 @@ library OrderUtils {
 
         OrderEventUtils.emitOrderExecuted(params.contracts.eventEmitter, params.key);
 
-        CallbackUtils.afterOrderExecution(params.key, params.order);
+        CallbackUtils.afterOrderExecution(params.key, params.order, eventData);
 
         // the order.executionFee for liquidation / adl orders is zero
         // gas costs for liquidations / adl is subsidised by the treasury
@@ -191,20 +193,17 @@ library OrderUtils {
 
     // @dev process an order execution
     // @param params BaseOrderUtils.ExecuteOrderParams
-    function processOrder(BaseOrderUtils.ExecuteOrderParams memory params) internal {
+    function processOrder(BaseOrderUtils.ExecuteOrderParams memory params) internal returns (EventUtils.EventLogData memory) {
         if (BaseOrderUtils.isIncreaseOrder(params.order.orderType())) {
-            IncreaseOrderUtils.processOrder(params);
-            return;
+            return IncreaseOrderUtils.processOrder(params);
         }
 
         if (BaseOrderUtils.isDecreaseOrder(params.order.orderType())) {
-            DecreaseOrderUtils.processOrder(params);
-            return;
+            return DecreaseOrderUtils.processOrder(params);
         }
 
         if (BaseOrderUtils.isSwapOrder(params.order.orderType())) {
-            SwapOrderUtils.processOrder(params);
-            return;
+            return SwapOrderUtils.processOrder(params);
         }
 
         revert Errors.UnsupportedOrderType();
@@ -228,8 +227,13 @@ library OrderUtils {
         string memory reason,
         bytes memory reasonBytes
     ) external {
+        // 63/64 gas is forwarded to external calls, reduce the startingGas to account for this
+        startingGas -= gasleft() / 63;
+
         Order.Props memory order = OrderStoreUtils.get(dataStore, key);
         BaseOrderUtils.validateNonEmptyOrder(order);
+
+        OrderStoreUtils.remove(dataStore, key, order.account());
 
         if (BaseOrderUtils.isIncreaseOrder(order.orderType()) || BaseOrderUtils.isSwapOrder(order.orderType())) {
             if (order.initialCollateralDeltaAmount() > 0) {
@@ -242,11 +246,10 @@ library OrderUtils {
             }
         }
 
-        OrderStoreUtils.remove(dataStore, key, order.account());
-
         OrderEventUtils.emitOrderCancelled(eventEmitter, key, reason, reasonBytes);
 
-        CallbackUtils.afterOrderCancellation(key, order);
+        EventUtils.EventLogData memory eventData;
+        CallbackUtils.afterOrderCancellation(key, order, eventData);
 
         GasUtils.payExecutionFee(
             dataStore,
@@ -277,6 +280,9 @@ library OrderUtils {
         string memory reason,
         bytes memory reasonBytes
     ) external {
+        // 63/64 gas is forwarded to external calls, reduce the startingGas to account for this
+        startingGas -= gasleft() / 63;
+
         Order.Props memory order = OrderStoreUtils.get(dataStore, key);
         BaseOrderUtils.validateNonEmptyOrder(order);
 
@@ -292,7 +298,8 @@ library OrderUtils {
 
         OrderEventUtils.emitOrderFrozen(eventEmitter, key, reason, reasonBytes);
 
-        CallbackUtils.afterOrderFrozen(key, order);
+        EventUtils.EventLogData memory eventData;
+        CallbackUtils.afterOrderFrozen(key, order, eventData);
 
         GasUtils.payExecutionFee(
             dataStore,
@@ -303,6 +310,5 @@ library OrderUtils {
             keeper,
             order.account()
         );
-
     }
 }

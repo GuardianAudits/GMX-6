@@ -2,9 +2,12 @@ import { hashString, hashData } from "./hash";
 
 export const WNT = hashString("WNT");
 export const NONCE = hashString("NONCE");
-export const MAX_LEVERAGE = hashString("MAX_LEVERAGE");
 
 export const FEE_RECEIVER = hashString("FEE_RECEIVER");
+export const HOLDING_ADDRESS = hashString("HOLDING_ADDRESS");
+export const MIN_HANDLE_EXECUTION_ERROR_GAS = hashString("MIN_HANDLE_EXECUTION_ERROR_GAS");
+
+export const MAX_LEVERAGE = hashString("MAX_LEVERAGE");
 
 export const MARKET_LIST = hashString("MARKET_LIST");
 
@@ -32,7 +35,11 @@ export const CANCEL_ORDER_FEATURE_DISABLED = hashString("CANCEL_ORDER_FEATURE_DI
 
 export const CLAIMABLE_FEE_AMOUNT = hashString("CLAIMABLE_FEE_AMOUNT");
 export const CLAIMABLE_FUNDING_AMOUNT = hashString("CLAIMABLE_FUNDING_AMOUNT");
+export const CLAIMABLE_COLLATERAL_AMOUNT = hashString("CLAIMABLE_COLLATERAL_AMOUNT");
+export const CLAIMABLE_COLLATERAL_FACTOR = hashString("CLAIMABLE_COLLATERAL_FACTOR");
 export const CLAIMABLE_COLLATERAL_TIME_DIVISOR = hashString("CLAIMABLE_COLLATERAL_TIME_DIVISOR");
+
+export const MAX_UI_FEE_FACTOR = hashString("MAX_UI_FEE_FACTOR");
 
 export const IS_MARKET_DISABLED = hashString("IS_MARKET_DISABLED");
 export const MAX_SWAP_PATH_LENGTH = hashString("MAX_SWAP_PATH_LENGTH");
@@ -43,7 +50,11 @@ export const MAX_ORACLE_REF_PRICE_DEVIATION_FACTOR = hashString("MAX_ORACLE_REF_
 export const MIN_ORACLE_SIGNERS = hashString("MIN_ORACLE_SIGNERS");
 
 export const MIN_COLLATERAL_FACTOR = hashString("MIN_COLLATERAL_FACTOR");
+export const MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER = hashString(
+  "MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER"
+);
 export const MIN_COLLATERAL_USD = hashString("MIN_COLLATERAL_USD");
+export const MIN_POSITION_SIZE_USD = hashString("MIN_POSITION_SIZE_USD");
 
 export const SWAP_FEE_RECEIVER_FACTOR = hashString("SWAP_FEE_RECEIVER_FACTOR");
 
@@ -99,7 +110,8 @@ export const IS_ADL_ENABLED = hashString("IS_ADL_ENABLED");
 export const FUNDING_FACTOR = hashString("FUNDING_FACTOR");
 export const FUNDING_EXPONENT_FACTOR = hashString("FUNDING_EXPONENT_FACTOR");
 
-export const FUNDING_AMOUNT_PER_SIZE = hashString("FUNDING_AMOUNT_PER_SIZE");
+export const FUNDING_FEE_AMOUNT_PER_SIZE = hashString("FUNDING_FEE_AMOUNT_PER_SIZE");
+export const CLAIMABLE_FUNDING_AMOUNT_PER_SIZE = hashString("CLAIMABLE_FUNDING_AMOUNT_PER_SIZE");
 export const FUNDING_UPDATED_AT = hashString("FUNDING_UPDATED_AT");
 
 export const BORROWING_FACTOR = hashString("BORROWING_FACTOR");
@@ -187,6 +199,17 @@ export function claimableFundingAmountKey(market: string, token: string, account
   return hashData(["bytes32", "address", "address", "address"], [CLAIMABLE_FUNDING_AMOUNT, market, token, account]);
 }
 
+export function claimableCollateralAmountKey(market: string, token: string, timeKey: number, account: string) {
+  return hashData(
+    ["bytes32", "address", "address", "uint256", "address"],
+    [CLAIMABLE_COLLATERAL_AMOUNT, market, token, timeKey, account]
+  );
+}
+
+export function claimableCollateralFactorKey(market: string, token: string, timeKey: number) {
+  return hashData(["bytes32", "address", "address", "uint256"], [CLAIMABLE_COLLATERAL_FACTOR, market, token, timeKey]);
+}
+
 export function tokenTransferGasLimit(token: string) {
   return hashData(["bytes32", "address"], [TOKEN_TRANSFER_GAS_LIMIT, token]);
 }
@@ -224,6 +247,10 @@ export function openInterestInTokensKey(market: string, collateralToken: string,
 
 export function minCollateralFactorKey(market: string) {
   return hashData(["bytes32", "address"], [MIN_COLLATERAL_FACTOR, market]);
+}
+
+export function minCollateralFactorForOpenInterestMultiplierKey(market: string, isLong: boolean) {
+  return hashData(["bytes32", "address", "bool"], [MIN_COLLATERAL_FACTOR_FOR_OPEN_INTEREST_MULTIPLIER, market, isLong]);
 }
 
 export function reserveFactorKey(market: string, isLong: boolean) {
@@ -310,10 +337,17 @@ export function fundingExponentFactorKey(market: string) {
   return hashData(["bytes32", "address"], [FUNDING_EXPONENT_FACTOR, market]);
 }
 
-export function fundingAmountPerSizeKey(market: string, collateralToken: string, isLong: boolean) {
+export function fundingFeeAmountPerSizeKey(market: string, collateralToken: string, isLong: boolean) {
   return hashData(
     ["bytes32", "address", "address", "bool"],
-    [FUNDING_AMOUNT_PER_SIZE, market, collateralToken, isLong]
+    [FUNDING_FEE_AMOUNT_PER_SIZE, market, collateralToken, isLong]
+  );
+}
+
+export function claimableFundingAmountPerSizeKey(market: string, collateralToken: string, isLong: boolean) {
+  return hashData(
+    ["bytes32", "address", "address", "bool"],
+    [CLAIMABLE_FUNDING_AMOUNT_PER_SIZE, market, collateralToken, isLong]
   );
 }
 
@@ -333,8 +367,8 @@ export function depositGasLimitKey(singleToken: boolean) {
   return hashData(["bytes32", "bool"], [DEPOSIT_GAS_LIMIT, singleToken]);
 }
 
-export function withdrawalGasLimitKey(singleToken: boolean) {
-  return hashData(["bytes32", "bool"], [WITHDRAWAL_GAS_LIMIT, singleToken]);
+export function withdrawalGasLimitKey() {
+  return hashData(["bytes32"], [WITHDRAWAL_GAS_LIMIT]);
 }
 
 export function singleSwapGasLimitKey() {

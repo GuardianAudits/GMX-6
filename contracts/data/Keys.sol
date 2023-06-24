@@ -16,6 +16,9 @@ library Keys {
     // @dev for holding tokens that could not be sent out
     bytes32 public constant HOLDING_ADDRESS = keccak256(abi.encode("HOLDING_ADDRESS"));
 
+    // @dev key for the minimum gas that should be forwarded for execution error handling
+    bytes32 public constant MIN_HANDLE_EXECUTION_ERROR_GAS = keccak256(abi.encode("MIN_HANDLE_EXECUTION_ERROR_GAS"));
+
     // @dev for a global reentrancy guard
     bytes32 public constant REENTRANCY_GUARD_STATUS = keccak256(abi.encode("REENTRANCY_GUARD_STATUS"));
 
@@ -158,6 +161,7 @@ library Keys {
     bytes32 public constant REQUEST_EXPIRATION_BLOCK_AGE = keccak256(abi.encode("REQUEST_EXPIRATION_BLOCK_AGE"));
 
     bytes32 public constant MAX_CALLBACK_GAS_LIMIT = keccak256(abi.encode("MAX_CALLBACK_GAS_LIMIT"));
+    bytes32 public constant SAVED_CALLBACK_CONTRACT = keccak256(abi.encode("SAVED_CALLBACK_CONTRACT"));
 
     // @dev key for the min collateral factor
     bytes32 public constant MIN_COLLATERAL_FACTOR = keccak256(abi.encode("MIN_COLLATERAL_FACTOR"));
@@ -239,10 +243,14 @@ library Keys {
     bytes32 public constant IS_ADL_ENABLED = keccak256(abi.encode("IS_ADL_ENABLED"));
     // @dev key for funding factor
     bytes32 public constant FUNDING_FACTOR = keccak256(abi.encode("FUNDING_FACTOR"));
+    // @dev key for stable funding factor
+    bytes32 public constant STABLE_FUNDING_FACTOR = keccak256(abi.encode("STABLE_FUNDING_FACTOR"));
     // @dev key for funding exponent factor
     bytes32 public constant FUNDING_EXPONENT_FACTOR = keccak256(abi.encode("FUNDING_EXPONENT_FACTOR"));
-    // @dev key for funding amount per size
-    bytes32 public constant FUNDING_AMOUNT_PER_SIZE = keccak256(abi.encode("FUNDING_AMOUNT_PER_SIZE"));
+    // @dev key for funding fee amount per size
+    bytes32 public constant FUNDING_FEE_AMOUNT_PER_SIZE = keccak256(abi.encode("FUNDING_FEE_AMOUNT_PER_SIZE"));
+    // @dev key for claimable funding amount per size
+    bytes32 public constant CLAIMABLE_FUNDING_AMOUNT_PER_SIZE = keccak256(abi.encode("CLAIMABLE_FUNDING_AMOUNT_PER_SIZE"));
     // @dev key for when funding was last updated at
     bytes32 public constant FUNDING_UPDATED_AT = keccak256(abi.encode("FUNDING_UPDATED_AT"));
     // @dev key for claimable funding amount
@@ -259,6 +267,8 @@ library Keys {
     bytes32 public constant BORROWING_FACTOR = keccak256(abi.encode("BORROWING_FACTOR"));
     // @dev key for borrowing factor
     bytes32 public constant BORROWING_EXPONENT_FACTOR = keccak256(abi.encode("BORROWING_EXPONENT_FACTOR"));
+    // @dev key for skipping the borrowing factor for the smaller side
+    bytes32 public constant SKIP_BORROWING_FEE_FOR_SMALLER_SIDE = keccak256(abi.encode("SKIP_BORROWING_FEE_FOR_SMALLER_SIDE"));
     // @dev key for cumulative borrowing factor
     bytes32 public constant CUMULATIVE_BORROWING_FACTOR = keccak256(abi.encode("CUMULATIVE_BORROWING_FACTOR"));
     // @dev key for when the cumulative borrowing factor was last updated at
@@ -329,12 +339,10 @@ library Keys {
     }
 
     // @dev key for withdrawal gas limit
-    // @param singleToken whether a single token or pair tokens are being withdrawn
     // @return key for withdrawal gas limit
-    function withdrawalGasLimitKey(bool singleToken) internal pure returns (bytes32) {
+    function withdrawalGasLimitKey() internal pure returns (bytes32) {
         return keccak256(abi.encode(
-            WITHDRAWAL_GAS_LIMIT,
-            singleToken
+            WITHDRAWAL_GAS_LIMIT
         ));
     }
 
@@ -540,6 +548,18 @@ library Keys {
         ));
    }
 
+   // @dev the default callback contract
+   // @param account the user's account
+   // @param market the address of the market
+   // @param callbackContract the callback contract
+   function savedCallbackContract(address account, address market) internal pure returns (bytes32) {
+       return keccak256(abi.encode(
+           SAVED_CALLBACK_CONTRACT,
+           account,
+           market
+       ));
+   }
+
    // @dev the min collateral factor key
    // @param the market for the min collateral factor
    function minCollateralFactorKey(address market) internal pure returns (bytes32) {
@@ -589,11 +609,11 @@ library Keys {
    // @dev the key for the virtual inventory for swaps
    // @param the virtualMarketId the virtual market id
    // @param the token to check the inventory for
-   function virtualInventoryForSwapsKey(bytes32 virtualMarketId, address token) internal pure returns (bytes32) {
+   function virtualInventoryForSwapsKey(bytes32 virtualMarketId, bool isLongToken) internal pure returns (bytes32) {
        return keccak256(abi.encode(
            VIRTUAL_INVENTORY_FOR_SWAPS,
            virtualMarketId,
-           token
+           isLongToken
        ));
    }
 
@@ -861,6 +881,16 @@ library Keys {
         ));
     }
 
+    // @dev key for stable funding factor
+    // @param market the market to check
+    // @return key for stable funding factor
+    function stableFundingFactorKey(address market) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            STABLE_FUNDING_FACTOR,
+            market
+        ));
+    }
+
     // @dev the key for funding exponent
     // @param market the market for the pool
     function fundingExponentFactorKey(address market) internal pure returns (bytes32) {
@@ -870,14 +900,28 @@ library Keys {
         ));
     }
 
-    // @dev key for funding amount per size
+    // @dev key for funding fee amount per size
     // @param market the market to check
     // @param collateralToken the collateralToken to get the key for
     // @param isLong whether to get the key for the long or short side
-    // @return key for funding amount per size
-    function fundingAmountPerSizeKey(address market, address collateralToken, bool isLong) internal pure returns (bytes32) {
+    // @return key for funding fee amount per size
+    function fundingFeeAmountPerSizeKey(address market, address collateralToken, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(
-            FUNDING_AMOUNT_PER_SIZE,
+            FUNDING_FEE_AMOUNT_PER_SIZE,
+            market,
+            collateralToken,
+            isLong
+        ));
+    }
+
+    // @dev key for claimabel funding amount per size
+    // @param market the market to check
+    // @param collateralToken the collateralToken to get the key for
+    // @param isLong whether to get the key for the long or short side
+    // @return key for claimable funding amount per size
+    function claimableFundingAmountPerSizeKey(address market, address collateralToken, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            CLAIMABLE_FUNDING_AMOUNT_PER_SIZE,
             market,
             collateralToken,
             isLong
@@ -897,7 +941,6 @@ library Keys {
     // @dev key for claimable funding amount
     // @param market the market to check
     // @param token the token to check
-    // @param account the account to check
     // @return key for claimable funding amount
     function claimableFundingAmountKey(address market, address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(

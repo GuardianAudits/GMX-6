@@ -1,0 +1,6717 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/adl/AdlUtils.sol": {
+      "lastModificationDate": 1687573391381,
+      "contentHash": "ec2f504f18df20b80208687f1fb77307",
+      "sourceName": "contracts/adl/AdlUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../order/OrderStoreUtils.sol",
+        "../order/OrderEventUtils.sol",
+        "../position/PositionUtils.sol",
+        "../position/PositionStoreUtils.sol",
+        "../nonce/NonceUtils.sol",
+        "../callback/CallbackUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AdlUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/data/DataStore.sol": {
+      "lastModificationDate": 1687573391385,
+      "contentHash": "28d33cacb866ba9d2b73fc2159318339",
+      "sourceName": "contracts/data/DataStore.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../role/RoleModule.sol",
+        "../utils/Calc.sol",
+        "../utils/Printer.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DataStore"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/event/EventEmitter.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "d05b9fbfe6788db2ec3ff886b7b26453",
+      "sourceName": "contracts/event/EventEmitter.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../role/RoleModule.sol",
+        "./EventUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EventEmitter"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/OrderStoreUtils.sol": {
+      "lastModificationDate": 1687573391399,
+      "contentHash": "8a268d7b9c4cf7ad92bf1bb750d637a7",
+      "sourceName": "contracts/order/OrderStoreUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol",
+        "./Order.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderStoreUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/OrderEventUtils.sol": {
+      "lastModificationDate": 1687573391399,
+      "contentHash": "2dd5664dc8973109a7ed32e6aa1bc862",
+      "sourceName": "contracts/order/OrderEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../utils/Cast.sol",
+        "./Order.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/PositionUtils.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "d16c69fa372c6e0ffae3b2a8dd1cf216",
+      "sourceName": "contracts/position/PositionUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "../utils/Precision.sol",
+        "./Position.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../pricing/PositionPricingUtils.sol",
+        "../order/BaseOrderUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PositionUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/PositionStoreUtils.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "4808ae4b0f50cc0ce7598cb991590030",
+      "sourceName": "contracts/position/PositionStoreUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol",
+        "./Position.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PositionStoreUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/nonce/NonceUtils.sol": {
+      "lastModificationDate": 1687573391394,
+      "contentHash": "1c0d5413ea4b6edc5e3e09c61ac673d9",
+      "sourceName": "contracts/nonce/NonceUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "NonceUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/callback/CallbackUtils.sol": {
+      "lastModificationDate": 1687573391383,
+      "contentHash": "15b4139194fde0eed61b3c568d9edcdd",
+      "sourceName": "contracts/callback/CallbackUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Address.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../error/ErrorUtils.sol",
+        "./IOrderCallbackReceiver.sol",
+        "./IDepositCallbackReceiver.sol",
+        "./IWithdrawalCallbackReceiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CallbackUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/role/RoleModule.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "f0416d85790c76960b1a29acd0775855",
+      "sourceName": "contracts/role/RoleModule.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./RoleStore.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "RoleModule"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Calc.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "793e9188e5842dbbe836f676d55ed6d4",
+      "sourceName": "contracts/utils/Calc.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "@openzeppelin/contracts/utils/math/SafeCast.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Calc"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Printer.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "5a9b90626c1d7eb5083f782df6105df0",
+      "sourceName": "contracts/utils/Printer.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Printer"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/role/RoleStore.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "25ac9ccf5958e3002d6ce3586b32a4de",
+      "sourceName": "contracts/role/RoleStore.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "../utils/EnumerableValues.sol",
+        "./Role.sol",
+        "../error/Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "RoleStore"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/EnumerableValues.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "b2d2e05cdefdc1734ea3e9e22f6d89ee",
+      "sourceName": "contracts/utils/EnumerableValues.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableValues"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/error/Errors.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "92cfbf2e80fb8e84896510cc1c6c2fbd",
+      "sourceName": "contracts/error/Errors.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Errors"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/role/Role.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "732f1ffcf81276008e577a7347b90964",
+      "sourceName": "contracts/role/Role.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Role"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/structs/EnumerableSet.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "aec6e37069dfaa5e3d5fd66ef2274b0c",
+      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableSet"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "64e3f111253497ba40c2ad9bdf48a191",
+      "sourceName": "@openzeppelin/contracts/utils/math/SafeCast.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeCast"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "226875d0edb508420f74e7a1c2786ad8",
+      "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SignedMath"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1687628821039,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/event/EventUtils.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "c462d5359a3c3fd31971c3aaced835b6",
+      "sourceName": "contracts/event/EventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/data/Keys.sol": {
+      "lastModificationDate": 1687573391388,
+      "contentHash": "ce41954a4326ea0e28c69f92619877c0",
+      "sourceName": "contracts/data/Keys.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Keys"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/Order.sol": {
+      "lastModificationDate": 1687573391399,
+      "contentHash": "1676458b90f73fc19327f08e48b26457",
+      "sourceName": "contracts/order/Order.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../chain/Chain.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Order"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/chain/Chain.sol": {
+      "lastModificationDate": 1687573391384,
+      "contentHash": "b44d382f173c31c900449631a1e9b178",
+      "sourceName": "contracts/chain/Chain.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ArbSys.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Chain"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/chain/ArbSys.sol": {
+      "lastModificationDate": 1687573391384,
+      "contentHash": "79b09cd515c5113791b70a343b48fae8",
+      "sourceName": "contracts/chain/ArbSys.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ArbSys"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Cast.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "880d727d5ce41e76c22d7f321bb68e74",
+      "sourceName": "contracts/utils/Cast.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Cast"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Precision.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "f40fa47fff975a8166a63b1d45ba2697",
+      "sourceName": "contracts/utils/Precision.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "prb-math/contracts/PRBMathUD60x18.sol",
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "@openzeppelin/contracts/utils/math/Math.sol",
+        "./Calc.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Precision"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/pricing/PositionPricingUtils.sol": {
+      "lastModificationDate": 1687573391402,
+      "contentHash": "e3ffcdabf4fb19a264462cee8f351dd7",
+      "sourceName": "contracts/pricing/PositionPricingUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "../market/MarketUtils.sol",
+        "../utils/Precision.sol",
+        "../utils/Calc.sol",
+        "./PricingUtils.sol",
+        "../referral/IReferralStorage.sol",
+        "../referral/ReferralUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PositionPricingUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/BaseOrderUtils.sol": {
+      "lastModificationDate": 1687573391398,
+      "contentHash": "90e6500652c5d93b962a3dadb1f26552",
+      "sourceName": "contracts/order/BaseOrderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Order.sol",
+        "../market/Market.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../referral/IReferralStorage.sol",
+        "../order/OrderVault.sol",
+        "../oracle/Oracle.sol",
+        "../swap/SwapHandler.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BaseOrderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/Position.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "a9610ef12c2339c301764a96d5ee83a6",
+      "sourceName": "contracts/position/Position.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Position"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/prb-math/contracts/PRBMathUD60x18.sol": {
+      "lastModificationDate": 1687628822376,
+      "contentHash": "ea06e5964d6db368921b74c21e01999b",
+      "sourceName": "prb-math/contracts/PRBMathUD60x18.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./PRBMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4"
+      ],
+      "artifacts": [
+        "PRBMathUD60x18"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/math/Math.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "fb23b534599db16bb969dc6afcdc4261",
+      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Math"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "2337f0279507b5edf14a07067adf0d05",
+      "sourceName": "@openzeppelin/contracts/utils/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/prb-math/contracts/PRBMath.sol": {
+      "lastModificationDate": 1687628822376,
+      "contentHash": "e5a2346290b1f420ef28ce51340cf55e",
+      "sourceName": "prb-math/contracts/PRBMath.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4"
+      ],
+      "artifacts": [
+        "PRBMath"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketUtils.sol": {
+      "lastModificationDate": 1687573391392,
+      "contentHash": "3326476870578d4bba0682906174c211",
+      "sourceName": "contracts/market/MarketUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../bank/StrictBank.sol",
+        "./Market.sol",
+        "./MarketPoolValueInfo.sol",
+        "./MarketToken.sol",
+        "./MarketEventUtils.sol",
+        "./MarketStoreUtils.sol",
+        "../position/Position.sol",
+        "../order/Order.sol",
+        "../oracle/Oracle.sol",
+        "../price/Price.sol",
+        "../utils/Calc.sol",
+        "../utils/Precision.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/referral/IReferralStorage.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "a01e0748d52f82fd962a8471802c73cb",
+      "sourceName": "contracts/referral/IReferralStorage.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ReferralTier.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IReferralStorage"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/referral/ReferralUtils.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "3f938a2a3454c0d9df6c70ac9b7e8095",
+      "sourceName": "contracts/referral/ReferralUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../event/EventEmitter.sol",
+        "../market/MarketToken.sol",
+        "../market/MarketUtils.sol",
+        "./IReferralStorage.sol",
+        "./ReferralTier.sol",
+        "./ReferralEventUtils.sol",
+        "../utils/Precision.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReferralUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/pricing/PricingUtils.sol": {
+      "lastModificationDate": 1687573391402,
+      "contentHash": "ab30e53fd64d72ac7026e40767c9e3cf",
+      "sourceName": "contracts/pricing/PricingUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "prb-math/contracts/PRBMathUD60x18.sol",
+        "../utils/Calc.sol",
+        "../utils/Precision.sol",
+        "../market/MarketUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PricingUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/bank/StrictBank.sol": {
+      "lastModificationDate": 1687573391382,
+      "contentHash": "67e2e81f5f4b78d50b84a4177842e489",
+      "sourceName": "contracts/bank/StrictBank.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "./Bank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "StrictBank"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/oracle/Oracle.sol": {
+      "lastModificationDate": 1687573391395,
+      "contentHash": "ef09514b63dcfa8de7cd5197e59b35a3",
+      "sourceName": "contracts/oracle/Oracle.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "../role/RoleModule.sol",
+        "./OracleStore.sol",
+        "./OracleUtils.sol",
+        "./IPriceFeed.sol",
+        "../price/Price.sol",
+        "../chain/Chain.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Bits.sol",
+        "../utils/Array.sol",
+        "../utils/Precision.sol",
+        "../utils/Cast.sol",
+        "../utils/Uint256Mask.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Oracle"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/price/Price.sol": {
+      "lastModificationDate": 1687573391402,
+      "contentHash": "d9dc18a690e45efc7242deccfe2d54c9",
+      "sourceName": "contracts/price/Price.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Price"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketPoolValueInfo.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "2be607da385beafe65108a9a85ec31eb",
+      "sourceName": "contracts/market/MarketPoolValueInfo.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketPoolValueInfo"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/Market.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "efb09f1b7ac7fdd2e75897220d2ac7ea",
+      "sourceName": "contracts/market/Market.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Market"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketToken.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "7f81332210f12b183f7482369bc58b0e",
+      "sourceName": "contracts/market/MarketToken.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "../bank/Bank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketToken"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketStoreUtils.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "295945ff3a28dde1baa704e985ba3b6a",
+      "sourceName": "contracts/market/MarketStoreUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol",
+        "./Market.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketStoreUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketEventUtils.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "9f8de085ac6be13a0b032ebfefaf7449",
+      "sourceName": "contracts/market/MarketEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol",
+        "./MarketPoolValueInfo.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/bank/Bank.sol": {
+      "lastModificationDate": 1687573391382,
+      "contentHash": "f97f327d788159714c918fef7cd4a760",
+      "sourceName": "contracts/bank/Bank.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../token/TokenUtils.sol",
+        "../role/RoleModule.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Bank"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+      "lastModificationDate": 1687628823396,
+      "contentHash": "3a843b05b85a270e9455e3d2e804e633",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../extensions/draft-IERC20Permit.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/token/TokenUtils.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "b9ef0c1d5cbf4a3efc3b79050fab6d08",
+      "sourceName": "contracts/token/TokenUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Address.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../error/ErrorUtils.sol",
+        "../utils/AccountUtils.sol",
+        "./IWNT.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "TokenUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/error/ErrorUtils.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "d269bc990c9178aa3f3ea5839d55356a",
+      "sourceName": "contracts/error/ErrorUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ErrorUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/AccountUtils.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "6b798aef66b9b6fb9b8074b2e65c7670",
+      "sourceName": "contracts/utils/AccountUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../error/Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AccountUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/token/IWNT.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "91416483927d6d8cba953ff135f4ee1f",
+      "sourceName": "contracts/token/IWNT.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IWNT"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1687628821580,
+      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol": {
+      "lastModificationDate": 1687628823395,
+      "contentHash": "fb77f144244b9ab12533aa6ce85ef8c5",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Permit"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Bits.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "91f018daefeef49aece3c1f911429a41",
+      "sourceName": "contracts/utils/Bits.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Bits"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Array.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "9c9b7a6083fe6dea560513f7467c4797",
+      "sourceName": "contracts/utils/Array.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeCast.sol",
+        "../error/Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Array"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/Uint256Mask.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "5b99147b4c624fe1be3f4e29e0139da8",
+      "sourceName": "contracts/utils/Uint256Mask.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../error/Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Uint256Mask"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/oracle/OracleUtils.sol": {
+      "lastModificationDate": 1687573391395,
+      "contentHash": "0a27e66d0e3c41d495af74d23d31b417",
+      "sourceName": "contracts/oracle/OracleUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+        "../utils/Array.sol",
+        "../utils/Bits.sol",
+        "../price/Price.sol",
+        "../utils/Printer.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OracleUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/oracle/IPriceFeed.sol": {
+      "lastModificationDate": 1687573391394,
+      "contentHash": "7ba044bb7b80f60a3aab4e55dab853c2",
+      "sourceName": "contracts/oracle/IPriceFeed.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IPriceFeed"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/oracle/OracleStore.sol": {
+      "lastModificationDate": 1687573391395,
+      "contentHash": "86ddb286af11acae32ffefa7bd483c1e",
+      "sourceName": "contracts/oracle/OracleStore.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../role/RoleModule.sol",
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OracleStore"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "e240957102529c3ccf73bcf4527bcddc",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../Strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ECDSA"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1687628821582,
+      "contentHash": "cf46906c4035f51639a22265066a9e78",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Strings"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1687628822719,
+      "contentHash": "af7bd64e1cfefbf6cb07f2adc1a25392",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1687628821582,
+      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1687628823396,
+      "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Metadata"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/referral/ReferralTier.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "89f60ad0ed3015710b0dc1f24e38db6a",
+      "sourceName": "contracts/referral/ReferralTier.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReferralTier"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/referral/ReferralEventUtils.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "7eb64aa712b2e7beb12287dc03471870",
+      "sourceName": "contracts/referral/ReferralEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReferralEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/OrderVault.sol": {
+      "lastModificationDate": 1687573391400,
+      "contentHash": "34808127be503865ed26fca4c0129ebb",
+      "sourceName": "contracts/order/OrderVault.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../bank/StrictBank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderVault"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/swap/SwapHandler.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "cff9fe2155f1fecad5e41594a3236287",
+      "sourceName": "contracts/swap/SwapHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../role/RoleModule.sol",
+        "./SwapUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SwapHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/swap/SwapUtils.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "d72e9e1ef726983a341ab7ef91bc025d",
+      "sourceName": "contracts/swap/SwapUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../adl/AdlUtils.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../oracle/Oracle.sol",
+        "../pricing/SwapPricingUtils.sol",
+        "../token/TokenUtils.sol",
+        "../fee/FeeUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SwapUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1687628821559,
+      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReentrancyGuard"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/pricing/SwapPricingUtils.sol": {
+      "lastModificationDate": 1687573391402,
+      "contentHash": "adcd47d84ae4785552c37d578c89c480",
+      "sourceName": "contracts/pricing/SwapPricingUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "../market/MarketUtils.sol",
+        "../utils/Precision.sol",
+        "../utils/Calc.sol",
+        "./PricingUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SwapPricingUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/fee/FeeUtils.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "3b21416bf8a098a57ad0e52836b417da",
+      "sourceName": "contracts/fee/FeeUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol",
+        "../utils/AccountUtils.sol",
+        "../market/MarketUtils.sol",
+        "../market/MarketToken.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FeeUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/callback/IOrderCallbackReceiver.sol": {
+      "lastModificationDate": 1687573391383,
+      "contentHash": "1a385838979ef2e39a54a04e47589b68",
+      "sourceName": "contracts/callback/IOrderCallbackReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventUtils.sol",
+        "../order/Order.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IOrderCallbackReceiver"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/callback/IDepositCallbackReceiver.sol": {
+      "lastModificationDate": 1687573391383,
+      "contentHash": "f83cb4576978c61fc0aeb4e4060d5619",
+      "sourceName": "contracts/callback/IDepositCallbackReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventUtils.sol",
+        "../deposit/Deposit.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IDepositCallbackReceiver"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/callback/IWithdrawalCallbackReceiver.sol": {
+      "lastModificationDate": 1687573391383,
+      "contentHash": "d5236ab9af94e8b9b6e415976be95441",
+      "sourceName": "contracts/callback/IWithdrawalCallbackReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventUtils.sol",
+        "../withdrawal/Withdrawal.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IWithdrawalCallbackReceiver"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/Deposit.sol": {
+      "lastModificationDate": 1687573391388,
+      "contentHash": "d89d86e5e5e46dc9d9b6011c1f6a62e6",
+      "sourceName": "contracts/deposit/Deposit.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Deposit"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/withdrawal/Withdrawal.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "c079aa8636174bfad1d2b8ead7e96e8b",
+      "sourceName": "contracts/withdrawal/Withdrawal.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Withdrawal"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/withdrawal/WithdrawalUtils.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "9627fdbd996cc85107a7e266bbe7c500",
+      "sourceName": "contracts/withdrawal/WithdrawalUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../adl/AdlUtils.sol",
+        "../data/DataStore.sol",
+        "./WithdrawalVault.sol",
+        "./WithdrawalStoreUtils.sol",
+        "./WithdrawalEventUtils.sol",
+        "../nonce/NonceUtils.sol",
+        "../pricing/SwapPricingUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleUtils.sol",
+        "../gas/GasUtils.sol",
+        "../callback/CallbackUtils.sol",
+        "../utils/Array.sol",
+        "../utils/AccountUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/gas/GasUtils.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "58bad5c79b6bf4514e8641b2f4c89243",
+      "sourceName": "contracts/gas/GasUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../utils/Precision.sol",
+        "../deposit/Deposit.sol",
+        "../withdrawal/Withdrawal.sol",
+        "../order/Order.sol",
+        "../order/BaseOrderUtils.sol",
+        "../bank/StrictBank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "GasUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/withdrawal/WithdrawalStoreUtils.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "b892a28a4911fb2d73dee016b02ddd07",
+      "sourceName": "contracts/withdrawal/WithdrawalStoreUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol",
+        "./Withdrawal.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalStoreUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/withdrawal/WithdrawalEventUtils.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "d8def240f6f2db809991f0f5bffc85f1",
+      "sourceName": "contracts/withdrawal/WithdrawalEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol",
+        "./Withdrawal.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/withdrawal/WithdrawalVault.sol": {
+      "lastModificationDate": 1687573391407,
+      "contentHash": "5177eda8abd7bb3f0e533891d05d6703",
+      "sourceName": "contracts/withdrawal/WithdrawalVault.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../bank/StrictBank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalVault"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/OrderUtils.sol": {
+      "lastModificationDate": 1687573391399,
+      "contentHash": "bcd2a059356aa05257647ffadff162ba",
+      "sourceName": "contracts/order/OrderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "./Order.sol",
+        "./OrderVault.sol",
+        "./OrderStoreUtils.sol",
+        "./OrderEventUtils.sol",
+        "../nonce/NonceUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleUtils.sol",
+        "../event/EventEmitter.sol",
+        "./IncreaseOrderUtils.sol",
+        "./DecreaseOrderUtils.sol",
+        "./SwapOrderUtils.sol",
+        "./BaseOrderUtils.sol",
+        "../swap/SwapUtils.sol",
+        "../gas/GasUtils.sol",
+        "../callback/CallbackUtils.sol",
+        "../utils/Array.sol",
+        "../utils/AccountUtils.sol",
+        "../referral/ReferralUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/IncreaseOrderUtils.sol": {
+      "lastModificationDate": 1687573391398,
+      "contentHash": "c1ac81eeb554780fbb1d283139bdaaec",
+      "sourceName": "contracts/order/IncreaseOrderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderUtils.sol",
+        "../swap/SwapUtils.sol",
+        "../position/IncreasePositionUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../callback/CallbackUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IncreaseOrderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/DecreaseOrderUtils.sol": {
+      "lastModificationDate": 1687573391398,
+      "contentHash": "8e033249e825870d3e5bf5d55fbe9e96",
+      "sourceName": "contracts/order/DecreaseOrderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderUtils.sol",
+        "../swap/SwapUtils.sol",
+        "../position/DecreasePositionUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../error/ErrorUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DecreaseOrderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/order/SwapOrderUtils.sol": {
+      "lastModificationDate": 1687573391400,
+      "contentHash": "da23fdf97c02b416fa30d2edccb6e53e",
+      "sourceName": "contracts/order/SwapOrderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderUtils.sol",
+        "../swap/SwapUtils.sol",
+        "../order/OrderStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SwapOrderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/IncreasePositionUtils.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "07091a9dcab15b586cf8851d2fcf82b0",
+      "sourceName": "contracts/position/IncreasePositionUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Precision.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../oracle/Oracle.sol",
+        "../pricing/PositionPricingUtils.sol",
+        "./Position.sol",
+        "./PositionStoreUtils.sol",
+        "./PositionUtils.sol",
+        "./PositionEventUtils.sol",
+        "../order/BaseOrderUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IncreasePositionUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/PositionEventUtils.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "ffd5667141d92420a6e03cb636848821",
+      "sourceName": "contracts/position/PositionEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol",
+        "./Position.sol",
+        "./PositionUtils.sol",
+        "../pricing/PositionPricingUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PositionEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/DecreasePositionUtils.sol": {
+      "lastModificationDate": 1687573391401,
+      "contentHash": "fd847e59c36bef78a53f612782126cdf",
+      "sourceName": "contracts/position/DecreasePositionUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Precision.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../oracle/Oracle.sol",
+        "../pricing/PositionPricingUtils.sol",
+        "./Position.sol",
+        "./PositionStoreUtils.sol",
+        "./PositionUtils.sol",
+        "./PositionEventUtils.sol",
+        "../order/BaseOrderUtils.sol",
+        "../order/OrderEventUtils.sol",
+        "./DecreasePositionCollateralUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DecreasePositionUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/DecreasePositionCollateralUtils.sol": {
+      "lastModificationDate": 1687573391400,
+      "contentHash": "6f2988566c0cdccf5d83013d6f436550",
+      "sourceName": "contracts/position/DecreasePositionCollateralUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Precision.sol",
+        "../error/ErrorUtils.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "../oracle/Oracle.sol",
+        "../pricing/PositionPricingUtils.sol",
+        "./Position.sol",
+        "./PositionEventUtils.sol",
+        "./PositionStoreUtils.sol",
+        "./PositionUtils.sol",
+        "../order/BaseOrderUtils.sol",
+        "../order/OrderEventUtils.sol",
+        "../swap/SwapUtils.sol",
+        "./DecreasePositionSwapUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DecreasePositionCollateralUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/position/DecreasePositionSwapUtils.sol": {
+      "lastModificationDate": 1687573391400,
+      "contentHash": "4f94dda654485aeee70b9ab3007a17fd",
+      "sourceName": "contracts/position/DecreasePositionSwapUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./PositionUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DecreasePositionSwapUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/reader/ReaderUtils.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "fbdbf30d4cbbd26f2174cd6b6fa9846d",
+      "sourceName": "contracts/reader/ReaderUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "../data/Keys.sol",
+        "../market/MarketStoreUtils.sol",
+        "../deposit/DepositStoreUtils.sol",
+        "../withdrawal/WithdrawalStoreUtils.sol",
+        "../position/Position.sol",
+        "../position/PositionUtils.sol",
+        "../position/PositionStoreUtils.sol",
+        "../position/IncreasePositionUtils.sol",
+        "../position/DecreasePositionUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../market/MarketUtils.sol",
+        "../market/Market.sol",
+        "./ReaderPricingUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReaderUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/DepositStoreUtils.sol": {
+      "lastModificationDate": 1687573391388,
+      "contentHash": "c076267dae90ecb43f576a89a2073b89",
+      "sourceName": "contracts/deposit/DepositStoreUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol",
+        "./Deposit.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositStoreUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/reader/ReaderPricingUtils.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "c4fcf2e20a9af9e1528d8e31d4213e00",
+      "sourceName": "contracts/reader/ReaderPricingUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SignedMath.sol",
+        "../data/Keys.sol",
+        "../market/MarketStoreUtils.sol",
+        "../deposit/DepositStoreUtils.sol",
+        "../withdrawal/WithdrawalStoreUtils.sol",
+        "../position/Position.sol",
+        "../position/PositionUtils.sol",
+        "../position/PositionStoreUtils.sol",
+        "../position/IncreasePositionUtils.sol",
+        "../position/DecreasePositionUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../market/MarketUtils.sol",
+        "../market/Market.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReaderPricingUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/OracleModuleTest.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "68b692a30c3b7b04f0787dd5a5fdee16",
+      "sourceName": "contracts/test/OracleModuleTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../oracle/OracleModule.sol",
+        "../oracle/Oracle.sol",
+        "../utils/Uint256Mask.sol",
+        "../chain/Chain.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OracleModuleTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/oracle/OracleModule.sol": {
+      "lastModificationDate": 1687573391395,
+      "contentHash": "7992895d376233d7776511ce9cc2bd2a",
+      "sourceName": "contracts/oracle/OracleModule.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Oracle.sol",
+        "../event/EventEmitter.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OracleModule"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/OrderStoreUtilsTest.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "371953b76e16ee51541af4fd57b70bd5",
+      "sourceName": "contracts/test/OrderStoreUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../order/OrderStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderStoreUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/reader/Reader.sol": {
+      "lastModificationDate": 1687573391403,
+      "contentHash": "b78a87f608f261dbb354d612cb3c897d",
+      "sourceName": "contracts/reader/Reader.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../market/MarketStoreUtils.sol",
+        "../deposit/DepositStoreUtils.sol",
+        "../withdrawal/WithdrawalStoreUtils.sol",
+        "../position/Position.sol",
+        "../position/PositionUtils.sol",
+        "../position/PositionStoreUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../market/MarketUtils.sol",
+        "../market/Market.sol",
+        "./ReaderUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Reader"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/PricingUtilsTest.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "b7ea32c8a32afc6345d6dfc93d5dcb2a",
+      "sourceName": "contracts/test/PricingUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../pricing/PricingUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PricingUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/ArrayTest.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "61bc3737286eb13b15ae7046e2442d65",
+      "sourceName": "contracts/test/ArrayTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Array.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ArrayTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/ExecuteDepositUtils.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "6c702739564d31e5cfaf8eb6b8000dd6",
+      "sourceName": "contracts/deposit/ExecuteDepositUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../adl/AdlUtils.sol",
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "./DepositVault.sol",
+        "./DepositStoreUtils.sol",
+        "./DepositEventUtils.sol",
+        "../pricing/SwapPricingUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleUtils.sol",
+        "../gas/GasUtils.sol",
+        "../callback/CallbackUtils.sol",
+        "../utils/Array.sol",
+        "../error/ErrorUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ExecuteDepositUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/DepositVault.sol": {
+      "lastModificationDate": 1687573391389,
+      "contentHash": "cabfb33b09fa856cb4e8416965c4938f",
+      "sourceName": "contracts/deposit/DepositVault.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../bank/StrictBank.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositVault"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/DepositEventUtils.sol": {
+      "lastModificationDate": 1687573391388,
+      "contentHash": "ed65cf1a027d6884592b032fa4f1ab55",
+      "sourceName": "contracts/deposit/DepositEventUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../event/EventEmitter.sol",
+        "../event/EventUtils.sol",
+        "../utils/Cast.sol",
+        "./Deposit.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositEventUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/DepositHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "d33a619c60a4cf9ab4223d99962ae2ca",
+      "sourceName": "contracts/exchange/DepositHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/GlobalReentrancyGuard.sol",
+        "./ExchangeUtils.sol",
+        "../role/RoleModule.sol",
+        "../event/EventEmitter.sol",
+        "../feature/FeatureUtils.sol",
+        "../market/Market.sol",
+        "../market/MarketToken.sol",
+        "../deposit/Deposit.sol",
+        "../deposit/DepositVault.sol",
+        "../deposit/DepositUtils.sol",
+        "../deposit/ExecuteDepositUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleModule.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/GlobalReentrancyGuard.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "d408f771b52ccc6f43859b66860f195e",
+      "sourceName": "contracts/utils/GlobalReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/Keys.sol",
+        "../data/DataStore.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "GlobalReentrancyGuard"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/feature/FeatureUtils.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "9c012a0f9f7e574082e5974353099645",
+      "sourceName": "contracts/feature/FeatureUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../data/Keys.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FeatureUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/deposit/DepositUtils.sol": {
+      "lastModificationDate": 1687573391388,
+      "contentHash": "765496162685803eeb9c084dd29ecdf3",
+      "sourceName": "contracts/deposit/DepositUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../data/DataStore.sol",
+        "../event/EventEmitter.sol",
+        "./DepositVault.sol",
+        "./DepositStoreUtils.sol",
+        "./DepositEventUtils.sol",
+        "../nonce/NonceUtils.sol",
+        "../gas/GasUtils.sol",
+        "../callback/CallbackUtils.sol",
+        "../utils/AccountUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/ExchangeUtils.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "bfb3b44db2d9530d27aafa009415650d",
+      "sourceName": "contracts/exchange/ExchangeUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../bank/StrictBank.sol",
+        "../chain/Chain.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ExchangeUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/router/ExchangeRouter.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "5f5c775c0c780a4451dda2b305037804",
+      "sourceName": "contracts/router/ExchangeRouter.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../exchange/DepositHandler.sol",
+        "../exchange/WithdrawalHandler.sol",
+        "../exchange/OrderHandler.sol",
+        "../utils/PayableMulticall.sol",
+        "../utils/AccountUtils.sol",
+        "./Router.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ExchangeRouter"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/WithdrawalHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "f91ea946cf536803b08608774abcb2ec",
+      "sourceName": "contracts/exchange/WithdrawalHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/GlobalReentrancyGuard.sol",
+        "../error/ErrorUtils.sol",
+        "./ExchangeUtils.sol",
+        "../role/RoleModule.sol",
+        "../feature/FeatureUtils.sol",
+        "../market/Market.sol",
+        "../market/MarketToken.sol",
+        "../withdrawal/Withdrawal.sol",
+        "../withdrawal/WithdrawalVault.sol",
+        "../withdrawal/WithdrawalStoreUtils.sol",
+        "../withdrawal/WithdrawalUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleModule.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/OrderHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "9dca85ae5df3a003069186388856fccf",
+      "sourceName": "contracts/exchange/OrderHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderHandler.sol",
+        "../error/ErrorUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OrderHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/PayableMulticall.sol": {
+      "lastModificationDate": 1687573391406,
+      "contentHash": "0f471d623966d7acec91f76bbe3966f3",
+      "sourceName": "contracts/utils/PayableMulticall.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../error/ErrorUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PayableMulticall"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/router/Router.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "fc5e49905436438f3aab7b8950b3d21e",
+      "sourceName": "contracts/router/Router.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../role/RoleModule.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Router"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/BaseOrderHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "28ef50ea230467f4f92e9690b9886a6a",
+      "sourceName": "contracts/exchange/BaseOrderHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/GlobalReentrancyGuard.sol",
+        "./ExchangeUtils.sol",
+        "../role/RoleModule.sol",
+        "../feature/FeatureUtils.sol",
+        "../callback/CallbackUtils.sol",
+        "../adl/AdlUtils.sol",
+        "../liquidation/LiquidationUtils.sol",
+        "../market/Market.sol",
+        "../market/MarketToken.sol",
+        "../order/Order.sol",
+        "../order/OrderVault.sol",
+        "../order/OrderUtils.sol",
+        "../oracle/Oracle.sol",
+        "../oracle/OracleModule.sol",
+        "../event/EventEmitter.sol",
+        "../referral/IReferralStorage.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BaseOrderHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/liquidation/LiquidationUtils.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "f366bf2df09fe3bb4d41e73f5e17e792",
+      "sourceName": "contracts/liquidation/LiquidationUtils.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../position/PositionUtils.sol",
+        "../position/PositionStoreUtils.sol",
+        "../order/OrderStoreUtils.sol",
+        "../order/OrderEventUtils.sol",
+        "../nonce/NonceUtils.sol",
+        "../callback/CallbackUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LiquidationUtils"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/PositionStoreUtilsTest.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "648ff73d7205281dfb200cbddd69ddc2",
+      "sourceName": "contracts/test/PositionStoreUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../position/PositionStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PositionStoreUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/DepositStoreUtilsTest.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "7eddff10b907f0c24e02f99222788d85",
+      "sourceName": "contracts/test/DepositStoreUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../deposit/DepositStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DepositStoreUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/RevertingCallbackReceiver.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "cfc1798114616c8168e3ed86cc03ff5c",
+      "sourceName": "contracts/mock/RevertingCallbackReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../callback/IDepositCallbackReceiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "RevertingCallbackReceiver"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/utils/BasicMulticall.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "e9d66d468541346329f538510f38f43e",
+      "sourceName": "contracts/utils/BasicMulticall.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../error/ErrorUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BasicMulticall"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/config/Timelock.sol": {
+      "lastModificationDate": 1687573391384,
+      "contentHash": "f41e774b8f091859592c2570139d748d",
+      "sourceName": "contracts/config/Timelock.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../role/RoleModule.sol",
+        "../event/EventEmitter.sol",
+        "../utils/BasicMulticall.sol",
+        "../oracle/OracleStore.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../chain/Chain.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Timelock"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/config/Config.sol": {
+      "lastModificationDate": 1687573391384,
+      "contentHash": "1b34fef8e9f17786aa9a10cb28bbd581",
+      "sourceName": "contracts/config/Config.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../data/DataStore.sol",
+        "../data/Keys.sol",
+        "../role/RoleModule.sol",
+        "../event/EventEmitter.sol",
+        "../utils/BasicMulticall.sol",
+        "../utils/Precision.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Config"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/LiquidationHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "d1af7fb46ef2de1da972aefbedde67c3",
+      "sourceName": "contracts/exchange/LiquidationHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderHandler.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LiquidationHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/exchange/AdlHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "364f7584f54c7783d0140eb9d34f7569",
+      "sourceName": "contracts/exchange/AdlHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./BaseOrderHandler.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AdlHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/market/MarketFactory.sol": {
+      "lastModificationDate": 1687573391391,
+      "contentHash": "795e4da45c580127f96f5951ae3911c2",
+      "sourceName": "contracts/market/MarketFactory.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./MarketToken.sol",
+        "./Market.sol",
+        "./MarketStoreUtils.sol",
+        "../event/EventEmitter.sol",
+        "../utils/Cast.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketFactory"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/MarketStoreUtilsTest.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "125738d99fb370c8501397c528a0d53e",
+      "sourceName": "contracts/test/MarketStoreUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../market/MarketStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MarketStoreUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/fee/FeeHandler.sol": {
+      "lastModificationDate": 1687573391390,
+      "contentHash": "6691a367a8168ca8aca0c440f20162c8",
+      "sourceName": "contracts/fee/FeeHandler.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "../data/DataStore.sol",
+        "../role/RoleModule.sol",
+        "../fee/FeeUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "FeeHandler"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/WithdrawalStoreUtilsTest.sol": {
+      "lastModificationDate": 1687573391405,
+      "contentHash": "114605d9ac9af27fe9be7245ab058abc",
+      "sourceName": "contracts/test/WithdrawalStoreUtilsTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../withdrawal/WithdrawalStoreUtils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WithdrawalStoreUtilsTest"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/Governable.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "fc3bf0caad1e4537a075b4bf1af1f7f7",
+      "sourceName": "contracts/mock/Governable.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../error/Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Governable"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/ReferralStorage.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "21a4dae5baa9ac44469f3de007bc1d64",
+      "sourceName": "contracts/mock/ReferralStorage.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../referral/IReferralStorage.sol",
+        "./Governable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReferralStorage"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/WNT.sol": {
+      "lastModificationDate": 1687573391394,
+      "contentHash": "ba0069914881c6281ba7523ac8aeccac",
+      "sourceName": "contracts/mock/WNT.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WNT"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/MintableToken.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "130c00514e218561c899433981c8b89b",
+      "sourceName": "contracts/mock/MintableToken.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MintableToken"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/MockPriceFeed.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "eab06dd35b4c4182cea997c1b00bae07",
+      "sourceName": "contracts/mock/MockPriceFeed.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../oracle/IPriceFeed.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MockPriceFeed"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/mock/Multicall3.sol": {
+      "lastModificationDate": 1687573391393,
+      "contentHash": "e6772ab88ea870f8582993d950ed265f",
+      "sourceName": "contracts/mock/Multicall3.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Multicall3"
+      ]
+    },
+    "/Users/owenthurm/Desktop/gmx-synthetics/contracts/test/GasUsageTest.sol": {
+      "lastModificationDate": 1687573391404,
+      "contentHash": "e4ac03e9051db5833e4b47a04a7a1881",
+      "sourceName": "contracts/test/GasUsageTest.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10,
+            "details": {
+              "constantOptimizer": true
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "GasUsageTest",
+        "GasUsageTestLib"
+      ]
+    }
+  }
+}

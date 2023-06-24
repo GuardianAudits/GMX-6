@@ -98,8 +98,9 @@ contract DepositHandler is GlobalReentrancyGuard, RoleModule, OracleModule {
         withOraclePrices(oracle, dataStore, eventEmitter, oracleParams)
     {
         uint256 startingGas = gasleft();
+        uint256 executionGas = GasUtils.getExecutionGas(dataStore, startingGas);
 
-        try this._executeDeposit(
+        try this._executeDeposit{ gas: executionGas }(
             key,
             oracleParams,
             msg.sender
@@ -181,8 +182,6 @@ contract DepositHandler is GlobalReentrancyGuard, RoleModule, OracleModule {
         uint256 startingGas,
         bytes memory reasonBytes
     ) internal {
-        (string memory reason, /* bool hasRevertMessage */) = ErrorUtils.getRevertMessage(reasonBytes);
-
         bytes4 errorSelector = ErrorUtils.getErrorSelectorFromData(reasonBytes);
 
         if (
@@ -191,6 +190,8 @@ contract DepositHandler is GlobalReentrancyGuard, RoleModule, OracleModule {
         ) {
             ErrorUtils.revertWithCustomError(reasonBytes);
         }
+
+        (string memory reason, /* bool hasRevertMessage */) = ErrorUtils.getRevertMessage(reasonBytes);
 
         DepositUtils.cancelDeposit(
             dataStore,

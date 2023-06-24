@@ -14,9 +14,12 @@ import "@nomiclabs/hardhat-ethers";
 // extends hre with gmx domain data
 import "./config";
 
+// add test helper methods
+import "./utils/test";
+
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.16",
+    version: "0.8.18",
     settings: {
       optimizer: {
         enabled: true,
@@ -30,6 +33,10 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       saveDeployments: true,
+      // forking: {
+      //   url: `https://api.avax-test.network/ext/bc/C/rpc`,
+      //   blockNumber: 22005219,
+      // },
     },
     localhost: {
       saveDeployments: true,
@@ -40,10 +47,17 @@ const config: HardhatUserConfig = {
     arbitrumGoerli: {
       url: "https://goerli-rollup.arbitrum.io/rpc",
       chainId: 421613,
+      accounts: [process.env.DEPLOYER_KEY].filter(Boolean),
+      verify: {
+        etherscan: {
+          apiUrl: "https://api-goerli.arbiscan.io/",
+          apiKey: process.env.ARBISCAN_API_KEY,
+        },
+      },
+      blockGasLimit: 10000000,
     },
     avalancheFuji: {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
-      // url: "https://avalanche-fuji.infura.io/v3/fb7620c360784f1d84741af88a069604",
       chainId: 43113,
       accounts: [process.env.DEPLOYER_KEY].filter(Boolean),
       verify: {
@@ -62,6 +76,7 @@ const config: HardhatUserConfig = {
     apiKey: {
       // hardhat-etherscan plugin uses "avalancheFujiTestnet" name
       avalancheFujiTestnet: process.env.SNOWTRACE_API_KEY,
+      arbitrumGoerli: process.env.ARBISCAN_API_KEY,
     },
   },
   gasReporter: {
@@ -69,6 +84,9 @@ const config: HardhatUserConfig = {
   },
   namedAccounts: {
     deployer: 0,
+  },
+  mocha: {
+    timeout: 100000000,
   },
 };
 

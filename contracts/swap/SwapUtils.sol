@@ -189,8 +189,8 @@ library SwapUtils {
         MarketUtils.validateSwapMarket(_params.market);
 
         cache.tokenOut = MarketUtils.getOppositeToken(_params.tokenIn, _params.market);
-        cache.tokenInPrice = params.oracle.getLatestPrice(_params.tokenIn);
-        cache.tokenOutPrice = params.oracle.getLatestPrice(cache.tokenOut);
+        cache.tokenInPrice = params.oracle.getPrimaryPrice(_params.tokenIn);
+        cache.tokenOutPrice = params.oracle.getPrimaryPrice(cache.tokenOut);
 
         SwapPricingUtils.SwapFees memory fees = SwapPricingUtils.getSwapFees(
             params.dataStore,
@@ -269,6 +269,10 @@ library SwapUtils {
                 priceImpactUsd
             );
 
+            if (fees.amountAfterFees <= (-negativeImpactAmount).toUint256()) {
+                revert Errors.SwapPriceImpactExceedsAmountIn(fees.amountAfterFees, negativeImpactAmount);
+            }
+
             cache.amountIn = fees.amountAfterFees - (-negativeImpactAmount).toUint256();
             cache.amountOut = cache.amountIn * cache.tokenInPrice.min / cache.tokenOutPrice.max;
             cache.poolAmountOut = cache.amountOut;
@@ -287,7 +291,7 @@ library SwapUtils {
         MarketUtils.applyDeltaToPoolAmount(
             params.dataStore,
             params.eventEmitter,
-            _params.market.marketToken,
+            _params.market,
             _params.tokenIn,
             (cache.amountIn + fees.feeAmountForPool).toInt256()
         );
@@ -297,13 +301,13 @@ library SwapUtils {
         MarketUtils.applyDeltaToPoolAmount(
             params.dataStore,
             params.eventEmitter,
-            _params.market.marketToken,
+            _params.market,
             cache.tokenOut,
             -cache.poolAmountOut.toInt256()
         );
 
         MarketUtils.MarketPrices memory prices = MarketUtils.MarketPrices(
-            params.oracle.getLatestPrice(_params.market.indexToken),
+            params.oracle.getPrimaryPrice(_params.market.indexToken),
             _params.tokenIn == _params.market.longToken ? cache.tokenInPrice : cache.tokenOutPrice,
             _params.tokenIn == _params.market.shortToken ? cache.tokenInPrice : cache.tokenOutPrice
         );

@@ -1,5 +1,5 @@
-import { getAllFiles } from "get-all-files";
-import { SolidityMetricsContainer } from "solidity-code-metrics";
+const { getAllFiles } = require("get-all-files");
+const { SolidityMetricsContainer } = require("solidity-code-metrics");
 
 const options = {
   basePath: "",

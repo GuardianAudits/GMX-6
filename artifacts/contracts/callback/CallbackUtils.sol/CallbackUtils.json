@@ -1,0 +1,905 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "CallbackUtils",
+  "sourceName": "contracts/callback/CallbackUtils.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialLongToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialShortToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "longTokenSwapPath",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "shortTokenSwapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Deposit.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "initialLongTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "initialShortTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minMarketTokens",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Deposit.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Deposit.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Deposit.Props",
+          "name": "deposit",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterDepositCancellationError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialLongToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialShortToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "longTokenSwapPath",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "shortTokenSwapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Deposit.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "initialLongTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "initialShortTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minMarketTokens",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Deposit.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Deposit.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Deposit.Props",
+          "name": "deposit",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterDepositExecutionError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialCollateralToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "swapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Order.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "enum Order.OrderType",
+                  "name": "orderType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum Order.DecreasePositionSwapType",
+                  "name": "decreasePositionSwapType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sizeDeltaUsd",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "initialCollateralDeltaAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "triggerPrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "acceptablePrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minOutputAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Order.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "isLong",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isFrozen",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Order.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Order.Props",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterOrderCancellationError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialCollateralToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "swapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Order.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "enum Order.OrderType",
+                  "name": "orderType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum Order.DecreasePositionSwapType",
+                  "name": "decreasePositionSwapType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sizeDeltaUsd",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "initialCollateralDeltaAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "triggerPrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "acceptablePrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minOutputAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Order.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "isLong",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isFrozen",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Order.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Order.Props",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterOrderExecutionError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "initialCollateralToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "swapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Order.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "enum Order.OrderType",
+                  "name": "orderType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum Order.DecreasePositionSwapType",
+                  "name": "decreasePositionSwapType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sizeDeltaUsd",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "initialCollateralDeltaAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "triggerPrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "acceptablePrice",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minOutputAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Order.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "isLong",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isFrozen",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Order.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Order.Props",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterOrderFrozenError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "longTokenSwapPath",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "shortTokenSwapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Withdrawal.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "marketTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minLongTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minShortTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Withdrawal.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Withdrawal.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Withdrawal.Props",
+          "name": "withdrawal",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterWithdrawalCancellationError",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "account",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackContract",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "uiFeeReceiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "market",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "longTokenSwapPath",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "shortTokenSwapPath",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct Withdrawal.Addresses",
+              "name": "addresses",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "marketTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minLongTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minShortTokenAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "updatedAtBlock",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "callbackGasLimit",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Withdrawal.Numbers",
+              "name": "numbers",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "shouldUnwrapNativeToken",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct Withdrawal.Flags",
+              "name": "flags",
+              "type": "tuple"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Withdrawal.Props",
+          "name": "withdrawal",
+          "type": "tuple"
+        }
+      ],
+      "name": "AfterWithdrawalExecutionError",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220694c6264c32385246abea50902be91e69b7872f9ca12f06a39bdb94683037cc464736f6c63430008120033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220694c6264c32385246abea50902be91e69b7872f9ca12f06a39bdb94683037cc464736f6c63430008120033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
