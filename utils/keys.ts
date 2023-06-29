@@ -7,6 +7,8 @@ export const FEE_RECEIVER = hashString("FEE_RECEIVER");
 export const HOLDING_ADDRESS = hashString("HOLDING_ADDRESS");
 export const MIN_HANDLE_EXECUTION_ERROR_GAS = hashString("MIN_HANDLE_EXECUTION_ERROR_GAS");
 
+export const SKIP_BORROWING_FEE_FOR_SMALLER_SIDE = hashString("SKIP_BORROWING_FEE_FOR_SMALLER_SIDE")
+
 export const MAX_LEVERAGE = hashString("MAX_LEVERAGE");
 
 export const MARKET_LIST = hashString("MARKET_LIST");
