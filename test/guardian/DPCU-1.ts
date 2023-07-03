@@ -118,8 +118,7 @@ describe("Guardian.DPCU-1", () => {
                 maxPrices: [expandDecimals(8000, 4), expandDecimals(1, 6)],
                 afterExecution: ({ logs }) => {
                     const positionFeesCollectedEvent = getEventData(logs, "PositionFeesCollected");
-                    // MEDIUM: Event emits with zero funding fees paid, however I did indeed pay them, and entirely in the collateral token
-                    // As the funding fees are roughly $40
+                    // Event emits with zero funding fees paid, however I did indeed pay them, and entirely in the collateral token
                     expect(positionFeesCollectedEvent.fundingFeeAmount).to.be.eq("0");
                 },
             },
