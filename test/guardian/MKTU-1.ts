@@ -176,16 +176,16 @@ describe("Guardian.MKTU-1", () => {
                 account: user1,
                 market: ethUsdMarket,
                 initialCollateralToken: usdc,
-                initialCollateralDeltaAmount: expandDecimals(100 * 1000, 6), // $50,000
+                initialCollateralDeltaAmount: 0,
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(200 * 1000), // 2x Position
+                sizeDeltaUsd: decimalToFloat(200 * 1000),
                 acceptablePrice: expandDecimals(5000, 12),
-                executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
                 orderType: OrderType.MarketDecrease,
                 isLong: false,
                 shouldUnwrapNativeToken: false,
-            },      execute: {
+            },
+            execute: {
                 afterExecution: ({ logs }) => {
                     const positionFeesCollectedEvent = getEventData(logs, "PositionFeesCollected");
                     expectWithinRange(positionFeesCollectedEvent.borrowingFeeAmount, "0", "1");

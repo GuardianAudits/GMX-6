@@ -38,7 +38,7 @@ describe("Guardian.DPCU-1", () => {
         });
     });
 
-    it.only("CRITICAL: latestFundingFeeAmountPerSize reset for a position", async () => {
+    it("CRITICAL: latestFundingFeeAmountPerSize reset for a position", async () => {
         // Activate funding fees
         await dataStore.setUint(keys.fundingFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 10));
         await dataStore.setUint(keys.fundingExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(1));
