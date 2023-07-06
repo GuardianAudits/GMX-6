@@ -91,7 +91,7 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
 
     expect(position0.numbers.sizeInUsd).eq(decimalToFloat(700 * 1000));
     // 700,000 / 5000  => 140
-    expect(position0.numbers.sizeInTokens).eq("140000000000000000000"); // 39.760000000000000004 ETH
+    expect(position0.numbers.sizeInTokens).eq("140000000000000000000"); // 140 ETH
 
 
     expect(await wnt.balanceOf(user1.address)).eq(0);
@@ -126,6 +126,76 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
             expect(feeInfo.protocolFeeAmount).eq("0");
             expect(feeInfo.positionFeeFactor).eq("0");
             expect(feeInfo.positionFeeAmountForPool).eq("0");
+          },
+      }
+    });
+
+    expect(await getBalanceOf(usdc.address, user1.address)).to.eq("0");
+    // 140 tokens with each token profiting $500
+    // 140 * $500 = $70,000
+    // (5/7) * $70,000 = $50,000 profit = 9.090909 ETH of profit
+    // Position Fee: $500,000 * 0.05 = $25,000 in fees = 20,000 USDC (entire collateral) + 0.90909 ETH
+    
+    // ETH Pool Amount = 1,000 ETH - 9.090909 ETH + 0.90909 ETH = 991.818181 ETH
+    // USDC Pool Amount = 1,000,000 USDC + 20,000 USDC = 1,020,000 USDC
+    // Receiver gets sent: 9.090909 ETH - 0.90909 ETH = 8.181818 ETH
+    expect(await getBalanceOf(wnt.address, user1.address)).to.eq("8181818181818181819");
+    expect(await getBalanceOf(usdc.address, user1.address)).to.eq("0");
+    // Verify Pool Amounts
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq("991818181818181818181"); // 991.818181 ETH
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(1_020_000, 6));
+
+
+    expect(await getPositionCount(dataStore)).eq(1);
+  });
+
+  it("Collateral Delta Auto-Update: initialCollateralDelta > remaining collateral", async () => {
+    // Goal: Get to (params.order.initialCollateralDeltaAmount() > values.remainingCollateralAmount) case
+    // and pass execution (avoid liquidation check failure)
+
+    // User creates a long for $700,000
+    await scenes.increasePosition.long(fixture, {
+        create: {
+          sizeDeltaUsd: decimalToFloat(700_000),
+          initialCollateralDeltaAmount: expandDecimals(20_000, 6),
+        },
+    });
+
+    const positionKeys = await getPositionKeys(dataStore, 0, 10);
+    const position0 = await reader.getPosition(dataStore.address, positionKeys[0]);
+
+    expect(position0.numbers.sizeInUsd).eq(decimalToFloat(700 * 1000));
+    // 700,000 / 5000  => 140
+    expect(position0.numbers.sizeInTokens).eq("140000000000000000000"); // 140 ETH
+
+
+    expect(await wnt.balanceOf(user1.address)).eq(0);
+    expect(await usdc.balanceOf(user1.address)).eq(0);
+
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq(expandDecimals(1000, 18));
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(1_000_000, 6));
+
+    // Position fee factor set which will be emptied on getEmptyFees
+    await dataStore.setUint(keys.positionFeeFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 2)); // 5%
+  
+    // Entire collateral used to pay fees,
+    // so initialCollateralDeltaAmount of 1 USDC will be enough to trigger auto-update
+    await scenes.decreasePosition.long.positivePnl(fixture, {
+      create: {
+        receiver: user1,
+        initialCollateralDeltaAmount: expandDecimals(1, 6),
+        decreasePositionSwapType: DecreasePositionSwapType.NoSwap,
+        sizeDeltaUsd: decimalToFloat(500_000)
+      },
+      execute: {
+        tokens: [wnt.address, usdc.address],
+        minPrices: [expandDecimals(5500, 4), expandDecimals(1, 6)],
+        maxPrices: [expandDecimals(5500, 4), expandDecimals(1, 6)],
+        precisions: [8, 18],
+        afterExecution: async ({ logs }) => {
+            const autoUpdate = getEventData(logs, "OrderCollateralDeltaAmountAutoUpdated");
+            expect(autoUpdate.collateralDeltaAmount).to.eq(expandDecimals(1, 6));
+            expect(autoUpdate.nextCollateralDeltaAmount).to.eq(0);
           },
       }
     });
