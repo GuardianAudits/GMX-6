@@ -13,6 +13,7 @@ import { errorsContract } from "../../utils/error";
 import { prices } from "../../utils/prices";
 import { getPositionCount, getAccountPositionCount, getPositionKeys } from "../../utils/position";
 import { getBalanceOf } from "../../utils/token";
+import { handleDeposit } from "../../utils/deposit";
 
 describe.only("Guardian.DecreasePositionCollateralUtils", () => {
   let fixture;
@@ -197,7 +198,7 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
             expect(autoUpdate.collateralDeltaAmount).to.eq(expandDecimals(1, 6));
             expect(autoUpdate.nextCollateralDeltaAmount).to.eq(0);
           },
-      }
+        }
     });
 
     expect(await getBalanceOf(usdc.address, user1.address)).to.eq("0");
@@ -219,6 +220,95 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
     expect(await getPositionCount(dataStore)).eq(1);
   });
 
+  it("Collateral Delta Auto-Update: initialCollateralDelta > price impact diff", async () => {
+    // Goal: Get to (params.order.initialCollateralDeltaAmount() > 0 && values.priceImpactDiffUsd > 0) case
+    // and pass execution
+
+    await handleDeposit(fixture, {
+        create: {
+          market: ethUsdMarket,
+          shortTokenAmount: expandDecimals(1_000_000, 6),
+        },
+    });
+
+    // User creates a long for $700,000
+    await scenes.increasePosition.long(fixture, {
+        create: {
+          sizeDeltaUsd: decimalToFloat(700_000),
+          initialCollateralDeltaAmount: expandDecimals(20_000, 6),
+        },
+    });
+    await scenes.increasePosition.short(fixture, {
+        create: {
+          sizeDeltaUsd: decimalToFloat(700_000),
+          initialCollateralDeltaAmount: expandDecimals(4, 18),
+        },
+    });
+
+    const positionKeys = await getPositionKeys(dataStore, 0, 10);
+    const position0 = await reader.getPosition(dataStore.address, positionKeys[0]);
+
+    expect(position0.numbers.sizeInUsd).eq(decimalToFloat(700 * 1000));
+    // 700,000 / 5000  => 140
+    expect(position0.numbers.sizeInTokens).eq("140000000000000000000"); // 140 ETH
+
+
+    expect(await wnt.balanceOf(user1.address)).eq(0);
+    expect(await usdc.balanceOf(user1.address)).eq(0);
+
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq(expandDecimals(1000, 18));
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(2_000_000, 6));
+
+    // Position fee factor set which will be emptied on getEmptyFees
+    await dataStore.setUint(keys.positionFeeFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 2)); // 5%
+    await dataStore.setUint(keys.maxPositionImpactFactorKey(ethUsdMarket.marketToken, false), decimalToFloat(1, 3));
+    await dataStore.setUint(keys.positionImpactFactorKey(ethUsdMarket.marketToken, true), decimalToFloat(1, 8));
+    await dataStore.setUint(keys.positionImpactFactorKey(ethUsdMarket.marketToken, false), decimalToFloat(1, 8));
+    await dataStore.setUint(keys.positionImpactExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(2, 0));
+  
+    // Entire collateral used to pay fees,
+    // so initialCollateralDeltaAmount of 1 USDC will be enough to trigger auto-update
+    await scenes.decreasePosition.long.positivePnl(fixture, {
+        create: {
+            receiver: user1,
+            initialCollateralDeltaAmount: expandDecimals(2000, 6),
+            decreasePositionSwapType: DecreasePositionSwapType.NoSwap,
+            sizeDeltaUsd: decimalToFloat(500_000)
+        },
+        execute: {
+            tokens: [wnt.address, usdc.address],
+            minPrices: [expandDecimals(5500, 4), expandDecimals(1, 6)],
+            maxPrices: [expandDecimals(5500, 4), expandDecimals(1, 6)],
+            precisions: [8, 18],
+        },
+        afterExecution: async ({ logs }) => {
+            const autoUpdate = getEventData(logs, "OrderCollateralDeltaAmountAutoUpdated");
+            expect(autoUpdate.collateralDeltaAmount).to.eq(expandDecimals(2000, 6));
+            expect(autoUpdate.nextCollateralDeltaAmount).to.eq(0);
+        },
+    });
+
+    expect(await getBalanceOf(usdc.address, user1.address)).to.eq("0");
+
+    // 140 tokens with each token profiting $500
+    // 140 * $500 = $70,000
+    // (5/7) * $70,000 = $50,000 profit = 9.090909 ETH of profit
+    // Position Fee: $500,000 * 0.05 = $25,000 in fees = 20,000 USDC (entire collateral) + 0.90909 ETH
+    
+    // Min Price Impact USD: 0.1% * 500,000 = $500
+    // PriceImpact = $500 / $5500 = 0.090909 ETH
+    // ETH Pool Amount = 1,000 ETH - 9.090909 ETH (profit) + 0.90909 ETH (fee) + 0.090909 ETH (PI) = 991.90909 ETH
+    // USDC Pool Amount = 1,000,000 USDC + 20,000 USDC = 1,020,000 USDC
+    // PriceImpactDiff = ~$2000 / $5500 = 0.363636 ETH
+    // Receiver gets sent: 9.090909 ETH - 0.90909 ETH (fee) - 0.090909 ETH (PI) - 0.363636 ETH (PI Diff)= 7.7272 ETH
+    expect(await getBalanceOf(wnt.address, user1.address)).to.eq("7727272727272727274");
+    expect(await getBalanceOf(usdc.address, user1.address)).to.eq("0");
+    // Verify Pool Amounts
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq("991909090909090909090"); // 991.909 ETH
+    expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(2_020_000, 6));
+
+    expect(await getPositionCount(dataStore)).eq(2);
+  });
 
   it("Liquidatable Position: Negative pnl, positive PI in secondary token, fees paid off", async () => {
     // Goal: Get to else case of
