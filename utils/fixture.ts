@@ -82,6 +82,7 @@ export async function deployFixture() {
   const positionUtils = await hre.ethers.getContract("PositionUtils");
   const swapUtils = await hre.ethers.getContract("SwapUtils");
   const referralStorage = await hre.ethers.getContract("ReferralStorage");
+  const feeHandler = await hre.ethers.getContract("FeeHandler");
 
   const ethUsdMarketAddress = getMarketTokenAddress(
     wnt.address,
@@ -224,6 +225,7 @@ export async function deployFixture() {
       ethUsdSingleTokenMarket,
       btcUsdMarket,
       solUsdMarket,
+      feeHandler,
     },
     props: { oracleSalt, signerIndexes: [0, 1, 2, 3, 4, 5, 6], executionFee: "1000000000000000" },
   };

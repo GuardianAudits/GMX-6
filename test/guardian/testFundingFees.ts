@@ -11,7 +11,7 @@ import { getPositionKeys } from "../../utils/position";
 import { prices } from "../../utils/prices";
 
 
-describe("Guardian.fundingFees", () => {
+describe("Guardian.FundingFees", () => {
     let fixture;
     let wallet, user0, user1, user2;
     let roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket;
