@@ -14,8 +14,10 @@ import { prices } from "../../utils/prices";
 import { getPositionCount, getAccountPositionCount, getPositionKeys } from "../../utils/position";
 import { getBalanceOf } from "../../utils/token";
 import { handleDeposit } from "../../utils/deposit";
+import { executeLiquidation } from "../../utils/liquidation";
 
-describe.only("Guardian.DecreasePositionCollateralUtils", () => {
+
+describe("Guardian.DecreasePositionCollateralUtils", () => {
   let fixture;
   let user0, user1;
   let dataStore, ethUsdMarket, wnt, usdc, reader;
@@ -103,9 +105,6 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
 
     // Position fee factor set which will be emptied on getEmptyFees
     await dataStore.setUint(keys.positionFeeFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 2)); // 5%
-    // await dataStore.setUint(keys.positionImpactFactorKey(ethUsdMarket.marketToken, true), decimalToFloat(1, 8));
-    // await dataStore.setUint(keys.positionImpactFactorKey(ethUsdMarket.marketToken, false), decimalToFloat(1, 8));
-    // await dataStore.setUint(keys.positionImpactExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(2, 0));
 
     // Because of Positive PnL, order passes validatePosition
     // even if entire collateral was used to pay fees.
@@ -391,7 +390,7 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
     // Make fees very high to force early return for fees
     await dataStore.setUint(keys.positionFeeFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 1)); // 50%
 
-    // User will have insufficient funds topy for fees
+    // User will have insufficient funds to pay for fees
     const params = {
       account: user0,
       market: ethUsdMarket,
@@ -415,7 +414,19 @@ describe.only("Guardian.DecreasePositionCollateralUtils", () => {
         }
       })
     )
+    
+    // Liquidation goes through
+    await executeLiquidation(fixture, {
+          account: user0.address,
+          market: ethUsdMarket,
+          collateralToken: usdc,
+          isLong: true,
+          minPrices: [expandDecimals(5000, 4), expandDecimals(1, 6)],
+          maxPrices: [expandDecimals(5000, 4), expandDecimals(1, 6)],
+          gasUsageLabel: "liquidationHandler.executeLiquidation",
+    });
 
+    expect(await getPositionCount(dataStore)).to.eq(1);
   });
 
 });
