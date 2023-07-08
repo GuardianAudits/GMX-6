@@ -154,7 +154,8 @@ describe("Guardian.MKTU-1", () => {
                 orderType: OrderType.MarketDecrease,
                 isLong: true,
                 shouldUnwrapNativeToken: false,
-            },      execute: {
+            },
+            execute: {
                 afterExecution: ({ logs }) => {
                     const positionFeesCollectedEvent = getEventData(logs, "PositionFeesCollected");
                     expectWithinRange(positionFeesCollectedEvent.borrowingFeeAmount, "1728001365", "1728001366");

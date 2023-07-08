@@ -40,6 +40,7 @@ export const CLAIMABLE_FUNDING_AMOUNT = hashString("CLAIMABLE_FUNDING_AMOUNT");
 export const CLAIMABLE_COLLATERAL_AMOUNT = hashString("CLAIMABLE_COLLATERAL_AMOUNT");
 export const CLAIMABLE_COLLATERAL_FACTOR = hashString("CLAIMABLE_COLLATERAL_FACTOR");
 export const CLAIMABLE_COLLATERAL_TIME_DIVISOR = hashString("CLAIMABLE_COLLATERAL_TIME_DIVISOR");
+export const CLAIMABLE_UI_FEE_AMOUNT = hashString("CLAIMABLE_UI_FEE_AMOUNT")
 
 export const MAX_UI_FEE_FACTOR = hashString("MAX_UI_FEE_FACTOR");
 
@@ -105,6 +106,8 @@ export const MAX_PNL_FACTOR_FOR_ADL = hashString("MAX_PNL_FACTOR_FOR_ADL");
 export const MIN_PNL_FACTOR_AFTER_ADL = hashString("MIN_PNL_FACTOR_AFTER_ADL");
 export const MAX_PNL_FACTOR_FOR_DEPOSITS = hashString("MAX_PNL_FACTOR_FOR_DEPOSITS");
 export const MAX_PNL_FACTOR_FOR_WITHDRAWALS = hashString("MAX_PNL_FACTOR_FOR_WITHDRAWALS");
+
+export const AFFILIATE_REWARD = hashString("AFFILIATE_REWARD");
 
 export const LATEST_ADL_BLOCK = hashString("LATEST_ADL_BLOCK");
 export const IS_ADL_ENABLED = hashString("IS_ADL_ENABLED");
@@ -411,4 +414,12 @@ export function virtualInventoryForSwapsKey(virtualMarketId: string, token: stri
 
 export function virtualInventoryForPositionsKey(virtualTokenId: string) {
   return hashData(["bytes32", "bytes32"], [VIRTUAL_INVENTORY_FOR_POSITIONS, virtualTokenId]);
+}
+
+export function affiliateRewardKey(market: string, token: string, account: string) {
+  return hashData(["bytes32", "address", "address", "address"], [AFFILIATE_REWARD, market, token, account]);
+}
+
+export function claimableUiFeeAmountKey(market: string, token: string, uiFeeReceiver: string) {
+  return hashData(["bytes32", "address", "address", "address"], [CLAIMABLE_UI_FEE_AMOUNT, market, token, uiFeeReceiver]);
 }
