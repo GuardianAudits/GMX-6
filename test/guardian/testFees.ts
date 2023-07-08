@@ -62,7 +62,7 @@ describe("Guardian.Fees", () => {
             },
         });
 
-        // The increase size is 50,000 -> position fee = .50% & 50,000 = $250
+        // The increase size is 50,000 -> position fee = .50% * 50,000 = $250
         // 10% * $250 = $25 for the feeReceiver
         const positionFeeFromIncrease = expandDecimals(25, 6)
 
@@ -88,7 +88,7 @@ describe("Guardian.Fees", () => {
             },
         });
 
-        // The decrease size is 25,000 -> position fee = .50% & 25,000 = $125
+        // The decrease size is 25,000 -> position fee = .50% * 25,000 = $125
         // 10% * $125 = $12.5 for the feeReceiver
         const positionFeeFromDecrease = expandDecimals(125, 5)
 
@@ -140,7 +140,7 @@ describe("Guardian.Fees", () => {
         // Register referral code
         const code = hashData(["bytes32"], [hashString("CODE4")]);
         await referralStorage.connect(user1).registerCode(code);
-        await referralStorage.setTier(1, 2000, 10000); // 25% discount code
+        await referralStorage.setTier(1, 2000, 10000); // 20% discount code
         await referralStorage.connect(user1).setReferrerDiscountShare(5000); // 50% discount share
         await referralStorage.setReferrerTier(user1.address, 1);
 
