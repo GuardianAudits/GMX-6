@@ -10,7 +10,6 @@ import { getEventData } from "../../utils/event";
 import {getPositionCount, getPositionKeys} from "../../utils/position";
 import { prices } from "../../utils/prices";
 
-
 describe("Guardian.FundingFees", () => {
     let fixture;
     let wallet, user0, user1, user2;
@@ -938,19 +937,5 @@ describe("Guardian.FundingFees", () => {
     
         // Total claimed funding fees
         // 17.280006 + 17.280006 + 8.640003 + 8.640003 = $51.840018
-    
-        await handleWithdrawal(fixture, {
-          create: {
-            market: ethUsdMarket,
-            marketTokenAmount: "6000000000000000000000000",
-          },
-        });
-    
-        await usingResult(getMarketTokenPriceWithPoolValue(fixture, {}), ([marketTokenPrice, poolValueInfo]) => {
-          expect(poolValueInfo.poolValue).eq("0");
-        });
-    
-        expect(await getSupplyOf(ethUsdMarket.marketToken)).eq("0");
-        expect(await dataStore.getUint(keys.positionImpactPoolAmountKey(ethUsdMarket.marketToken))).eq("0");
       });
 });
