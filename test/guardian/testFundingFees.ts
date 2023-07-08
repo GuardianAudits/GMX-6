@@ -13,12 +13,12 @@ import { prices } from "../../utils/prices";
 describe("Guardian.FundingFees", () => {
     let fixture;
     let wallet, user0, user1, user2;
-    let roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket;
+    let roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket, exchangeRouter;
 
     beforeEach(async () => {
         fixture = await deployFixture();
         ({wallet, user0, user1, user2} = fixture.accounts);
-        ({roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket} = fixture.contracts);
+        ({roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket, exchangeRouter} = fixture.contracts);
 
         await handleDeposit(fixture, {
             create: {
