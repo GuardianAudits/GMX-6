@@ -407,7 +407,7 @@ describe("Guardian.FundingFees", () => {
         expect(position2.numbers.shortTokenClaimableFundingAmountPerSize).to.eq(currentClaimableFundingPerSizeShortUSDC).to.eq("403205666666666666");
     });
 
-    it.only("Funding fees charged in a single token market are the same as those charged for a normal market", async function () {
+    it("Funding fees match when paid in different directions", async function () {
         await dataStore.setUint(keys.fundingFactorKey(ethUsdMarket.marketToken), decimalToFloat(1, 10));
         await dataStore.setUint(keys.fundingExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(1));
     
