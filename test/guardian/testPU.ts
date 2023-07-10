@@ -20,7 +20,6 @@ describe("Guardian.PositionUtils", () => {
     let wallet, user0, user1;
     let roleStore, dataStore, wnt, usdc, ethUsdMarket, solUsdMarket, reader, referralStorage, ethUsdSingleTokenMarket;
     let sol = getSyntheticTokenAddress(hre.network.config.chainId, "SOL");
-    console.log("Solana address:", sol);
 
     beforeEach(async () => {
         fixture = await deployFixture();
@@ -75,7 +74,7 @@ describe("Guardian.PositionUtils", () => {
                 initialCollateralToken: wnt,
                 initialCollateralDeltaAmount: initialCollateral, // $50,000 Collateral
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(50 * 1000), // $50,000 Position
+                sizeDeltaUsd: decimalToFloat(50_000), // $50,000 Position
                 acceptablePrice: expandDecimals(5000, 12),
                 executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
@@ -104,7 +103,7 @@ describe("Guardian.PositionUtils", () => {
                 market: solUsdMarket,
                 initialCollateralToken: wnt,
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(50 * 1000),
+                sizeDeltaUsd: decimalToFloat(50_000),
                 acceptablePrice: expandDecimals(100, 12),
                 executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
@@ -139,7 +138,7 @@ describe("Guardian.PositionUtils", () => {
                 initialCollateralToken: usdc,
                 initialCollateralDeltaAmount: initialCollateral, // $50,000 Collateral
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(50 * 1000), // $50,000 Position
+                sizeDeltaUsd: decimalToFloat(50_000), // $50,000 Position
                 acceptablePrice: expandDecimals(5000, 12),
                 executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
@@ -168,7 +167,7 @@ describe("Guardian.PositionUtils", () => {
                 market: ethUsdSingleTokenMarket,
                 initialCollateralToken: usdc,
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(50 * 1000),
+                sizeDeltaUsd: decimalToFloat(50_000),
                 acceptablePrice: expandDecimals(50_000, 12),
                 executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
@@ -202,7 +201,7 @@ describe("Guardian.PositionUtils", () => {
                 initialCollateralToken: usdc,
                 initialCollateralDeltaAmount: initialCollateral, // $5000 Collateral
                 swapPath: [],
-                sizeDeltaUsd: decimalToFloat(50 * 1000), // $50,000 Position
+                sizeDeltaUsd: decimalToFloat(50_000), // $50,000 Position
                 acceptablePrice: expandDecimals(5000, 12),
                 executionFee: expandDecimals(1, 15),
                 minOutputAmount: 0,
