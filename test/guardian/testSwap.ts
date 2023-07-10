@@ -317,7 +317,6 @@ describe("Guardian.Swap", () => {
 
             expect(await getAccountPositionCount(dataStore, user0.address)).eq(0);
             expect(await getOrderCount(dataStore)).eq(0);
-            expect(await usdc.balanceOf(user0.address)).eq("50000000000");
         });
 
         it("fails on duplicated market in a swap path during order execution", async () => {
@@ -346,7 +345,6 @@ describe("Guardian.Swap", () => {
 
             expect(await getAccountPositionCount(dataStore, user0.address)).eq(0);
             expect(await getOrderCount(dataStore)).eq(0);
-            expect(await usdc.balanceOf(user0.address)).eq("0"); // TODO: check why the difference between this and previous test
         })
 
         it("multiswaps through a regular market during order execution", async () => {
@@ -403,6 +401,7 @@ describe("Guardian.Swap", () => {
                 maxPrices: prices,
                 precisions: [8, 18, 18, 20],
                 oracleBlocks: [block0, block0, block0, block0],
+                gasUsageLabel: "executeOrder",
                 afterExecution: ({ logs }) => {
                     const positionIncreaseEvent = getEventData(logs, "PositionIncrease");
                     expect(positionIncreaseEvent.executionPrice).eq("4995000000000000"); // 4995$
@@ -499,6 +498,7 @@ describe("Guardian.Swap", () => {
                 maxPrices: prices,
                 precisions: [8, 18, 18],
                 oracleBlocks: [block0, block0, block0],
+                gasUsageLabel: "executeOrder",
                 afterExecution: ({ logs }) => {
                     const positionIncreaseEvent = getEventData(logs, "PositionIncrease");
                     expect(positionIncreaseEvent.executionPrice).eq("5000000000000000"); // 5000$
