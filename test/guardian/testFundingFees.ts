@@ -50,7 +50,7 @@ describe("Guardian.FundingFees", () => {
         });
     });
 
-    it.only("Funding fees charged in a single token market are the same as those charged for a normal market", async () => {
+    it("Funding fees charged in a single token market are the same as those charged for a normal market", async () => {
         // Activate funding fees
         await dataStore.setUint(keys.fundingFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 10));
         await dataStore.setUint(keys.fundingExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(1));
