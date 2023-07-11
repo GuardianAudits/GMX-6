@@ -42,7 +42,7 @@ import {
   getAccountOrderKeys,
 } from "../../utils/order";
 
-describe("Guardian.Lifecycle", () => {
+describe("Guardian.Lifecycle2", () => {
   let fixture;
   let user0, user1, user2, user3;
   let dataStore,
@@ -171,10 +171,10 @@ describe("Guardian.Lifecycle", () => {
         shouldUnwrapNativeToken: false,
       },
       execute: {
-            tokens: [wnt.address, usdc.address],
-            minPrices: [expandDecimals(5003, 4), expandDecimals(1, 6)],
-            maxPrices: [expandDecimals(5003, 4), expandDecimals(1, 6)],
-            precisions: [8, 18],
+        tokens: [wnt.address, usdc.address],
+        minPrices: [expandDecimals(5003, 4), expandDecimals(1, 6)],
+        maxPrices: [expandDecimals(5003, 4), expandDecimals(1, 6)],
+        precisions: [8, 18],
         afterExecution: ({ logs }) => {
           const positionIncreaseEvent = getEventData(logs, "PositionIncrease");
           expect(positionIncreaseEvent.executionPrice).eq("5003500350035003"); // ~5003 per token
@@ -1193,7 +1193,6 @@ describe("Guardian.Lifecycle", () => {
         maxPrices: [expandDecimals(5025, 4), expandDecimals(1, 6)],
         precisions: [8, 18],
         afterExecution: ({ logs }) => {
-            
           const positionDecreaseEvent = getEventData(logs, "PositionDecrease");
           expect(positionDecreaseEvent.executionPrice).eq("5025695912733322"); // ~5025 per token
 
@@ -1268,7 +1267,6 @@ describe("Guardian.Lifecycle", () => {
         marketTokenAmount: "9975892365709300827031",
       },
     });
-
 
     expect(await getPositionCount(dataStore)).to.eq(4);
 
@@ -1557,7 +1555,7 @@ describe("Guardian.Lifecycle", () => {
     expect(await getOrderCount(dataStore)).to.eq(0);
 
     expect(await getSupplyOf(ethUsdMarket.marketToken)).eq("0");
-    
+
     expect(await wnt.balanceOf(user0.address)).eq("17574225475836120293"); // 17.574225475836120293 ETH
     // $87871.127379180601465
     expect(await usdc.balanceOf(user0.address)).eq("80454845406"); // 80454.845406 USDC
