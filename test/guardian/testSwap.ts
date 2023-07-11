@@ -178,13 +178,13 @@ describe("Guardian.Swap", () => {
 
             // verify all pools changed by expected amount
             expect(await getPoolAmount(dataStore, btcUsdMarket.marketToken, wbtc.address)).eq(expandDecimals(102, 7));
-            expect(await getPoolAmount(dataStore, btcUsdMarket.marketToken, usdc.address)).eq(expandDecimals(98 * 5000, 6));
+            expect(await getPoolAmount(dataStore, btcUsdMarket.marketToken, usdc.address)).eq(expandDecimals(490_000, 6));
 
             expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq(expandDecimals(12, 18));
             expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(60_000, 6));
 
             expect(await getPoolAmount(dataStore, ethUsdtMarket.marketToken, wnt.address)).eq(expandDecimals(8, 18));
-            expect(await getPoolAmount(dataStore, ethUsdtMarket.marketToken, usdt.address)).eq(expandDecimals(12 * 5000, 6));
+            expect(await getPoolAmount(dataStore, ethUsdtMarket.marketToken, usdt.address)).eq(expandDecimals(60_000, 6));
 
             // because no impact fees were set, expect impact pool to be empty
             expect(await getSwapImpactPoolAmount(dataStore, btcUsdMarket.marketToken, wbtc.address)).eq(0);
@@ -328,7 +328,7 @@ describe("Guardian.Swap", () => {
                 gasUsageLabel: "executeOrder",
                 afterExecution: ({ logs }) => {
                     const positionIncreaseEvent = getEventData(logs, "PositionIncrease");
-                    expect(positionIncreaseEvent.executionPrice).eq("4995000000000000"); // 4995$
+                    expect(positionIncreaseEvent.executionPrice).eq("4995000000000000"); // $4995
                     expect(positionIncreaseEvent.sizeDeltaUsd).eq("20000000000000000000000000000000000") // 20,000 * 1e30
                     expect(positionIncreaseEvent.sizeDeltaInTokens).eq("4004004004004004004") // 4x leverage
                     // (5000 * 1e18) / (4995) = 1001001001001001001 - we put $5000 worth of BTC and swap to $5000  worth of WNT, which is at $4995
@@ -399,7 +399,7 @@ describe("Guardian.Swap", () => {
                 gasUsageLabel: "executeOrder",
                 afterExecution: ({ logs }) => {
                     const positionIncreaseEvent = getEventData(logs, "PositionIncrease");
-                    expect(positionIncreaseEvent.executionPrice).eq("5000000000000000"); // 5000$
+                    expect(positionIncreaseEvent.executionPrice).eq("5000000000000000"); // $5000
                     expect(positionIncreaseEvent.sizeDeltaUsd).eq("20000000000000000000000000000000000") // 20,000 * 1e30
                     expect(positionIncreaseEvent.sizeDeltaInTokens).eq("4000000000000000000")
                     expect(positionIncreaseEvent.collateralAmount).eq("1000000000000000000")
@@ -419,6 +419,12 @@ describe("Guardian.Swap", () => {
             // verify all pools changed by expected amount
             expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq(expandDecimals(9, 18));
             expect(await getPoolAmount(dataStore, ethUsdMarket.marketToken, usdc.address)).eq(expandDecimals(55_000, 6));
+
+            expect(await getPoolAmount(dataStore, ethUsdSpotOnlyMarket.marketToken, wnt.address)).eq(expandDecimals(11, 18));
+            expect(await getPoolAmount(dataStore, ethUsdSpotOnlyMarket.marketToken, usdc.address)).eq(expandDecimals(45_000, 6));
+
+            expect(await getPoolAmount(dataStore, ethUsdtMarket.marketToken, wnt.address)).eq(expandDecimals(9, 18));
+            expect(await getPoolAmount(dataStore, ethUsdtMarket.marketToken, usdt.address)).eq(expandDecimals(55_000, 6));
 
             // because no impact fees were set, expect impact pool to be empty
             expect(await getSwapImpactPoolAmount(dataStore, ethUsdMarket.marketToken, wnt.address)).eq(0);
