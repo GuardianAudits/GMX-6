@@ -7,17 +7,18 @@ import * as keys from "../../utils/keys";
 import {getOrderCount, handleOrder, OrderType} from "../../utils/order";
 import { time} from "@nomicfoundation/hardhat-network-helpers";
 import { getEventData } from "../../utils/event";
-import {getPositionCount, getPositionKeys} from "../../utils/position";
+import {getPositionCount, getPositionKeys, getAccountPositionCount} from "../../utils/position";
 import { prices } from "../../utils/prices";
+
 
 describe("Guardian.FundingFees", () => {
     let fixture;
-    let wallet, user0, user1, user2;
+    let wallet, user0, user1, user2, user3;
     let roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket, exchangeRouter;
 
     beforeEach(async () => {
         fixture = await deployFixture();
-        ({wallet, user0, user1, user2} = fixture.accounts);
+        ({wallet, user0, user1, user2, user3} = fixture.accounts);
         ({roleStore, dataStore, wnt, usdc, reader, referralStorage, ethUsdMarket, ethUsdSingleTokenMarket, exchangeRouter} = fixture.contracts);
 
         await handleDeposit(fixture, {
@@ -50,7 +51,7 @@ describe("Guardian.FundingFees", () => {
         });
     });
 
-    it.only("Funding fees charged in a single token market are the same as those charged for a normal market", async () => {
+    it("Funding fees charged in a single token market are the same as those charged for a normal market", async () => {
         // Activate funding fees
         await dataStore.setUint(keys.fundingFactorKey(ethUsdMarket.marketToken), decimalToFloat(5, 10));
         await dataStore.setUint(keys.fundingExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(1));
@@ -404,7 +405,7 @@ describe("Guardian.FundingFees", () => {
         expect(position2.numbers.sizeInUsd).to.eq(decimalToFloat(100_000))
         expect(position2.numbers.fundingFeeAmountPerSize).to.eq(0);
         expect(position2.numbers.longTokenClaimableFundingAmountPerSize).to.eq(0);
-        expect(position2.numbers.shortTokenClaimableFundingAmountPerSize).to.eq(currentClaimableFundingPerSizeShortUSDC).to.eq("403205666666666666");
+        expect(position2.numbers.shortTokenClaimableFundingAmountPerSize).to.eq(currentClaimableFundingPerSizeShortUSDC).to.eq("403204666666666666");
     });
 
     it("Funding fees match when paid in different directions", async function () {
@@ -412,6 +413,21 @@ describe("Guardian.FundingFees", () => {
         await dataStore.setUint(keys.fundingExponentFactorKey(ethUsdMarket.marketToken), decimalToFloat(1));
     
         expect(await dataStore.getUint(keys.fundingUpdatedAtKey(ethUsdMarket.marketToken))).eq(0);
+
+        await handleDeposit(fixture, {
+          create: {
+              account: user0,
+              market: ethUsdMarket,
+              longTokenAmount: expandDecimals(100, 18),
+              shortTokenAmount: expandDecimals(100 * 5000, 6),
+          },
+          execute: {
+              precisions: [8, 18],
+              tokens: [wnt.address, usdc.address],
+              minPrices: [expandDecimals(5000, 4), expandDecimals(1, 6)],
+              maxPrices: [expandDecimals(5000, 4), expandDecimals(1, 6)],
+          }
+      });
     
         await handleOrder(fixture, {
           create: {

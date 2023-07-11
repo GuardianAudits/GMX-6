@@ -82,7 +82,7 @@ describe("Guardian.Lifecycle", () => {
     await referralStorage.setReferrerTier(user3.address, 2);
   });
 
-  it.only("Life cycle test with price fluctuations", async () => {
+  it("Life cycle test with price fluctuations", async () => {
     // POSITION FEES
     await dataStore.setUint(
       keys.positionFeeFactorKey(ethUsdMarket.marketToken),
@@ -822,7 +822,7 @@ describe("Guardian.Lifecycle", () => {
     // Total $7979.106095
   });
 
-  it.only("Life cycle test using swap paths and price fluctuations", async () => {
+  it("Life cycle test using swap paths and price fluctuations", async () => {
     // POSITION FEES
     await dataStore.setUint(
       keys.positionFeeFactorKey(ethUsdMarket.marketToken),
@@ -1579,7 +1579,7 @@ describe("Guardian.Lifecycle", () => {
     // Total $7675.190900846221395
   });
 
-  it.only("Life cycle test with swaps and price fluctuations", async () => {
+  it("Life cycle test with swaps and price fluctuations", async () => {
     // POSITION FEES
     await dataStore.setUint(
       keys.positionFeeFactorKey(ethUsdMarket.marketToken),
