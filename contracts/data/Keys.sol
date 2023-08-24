@@ -225,6 +225,8 @@ library Keys {
     bytes32 public constant STABLE_PRICE = keccak256(abi.encode("STABLE_PRICE"));
     // @dev key for reserve factor
     bytes32 public constant RESERVE_FACTOR = keccak256(abi.encode("RESERVE_FACTOR"));
+    // @dev key for open interest reserve factor
+    bytes32 public constant OPEN_INTEREST_RESERVE_FACTOR = keccak256(abi.encode("OPEN_INTEREST_RESERVE_FACTOR"));
     // @dev key for max pnl factor
     bytes32 public constant MAX_PNL_FACTOR = keccak256(abi.encode("MAX_PNL_FACTOR"));
     // @dev key for max pnl factor
@@ -662,11 +664,13 @@ library Keys {
 
     // @dev key for position fee factor
     // @param market the market address to check
+    // @param forPositiveImpact whether the fee is for an action that has a positive price impact
     // @return key for position fee factor
-    function positionFeeFactorKey(address market) internal pure returns (bytes32) {
+    function positionFeeFactorKey(address market, bool forPositiveImpact) internal pure returns (bytes32) {
         return keccak256(abi.encode(
             POSITION_FEE_FACTOR,
-            market
+            market,
+            forPositiveImpact
         ));
     }
 
@@ -696,10 +700,11 @@ library Keys {
     // @dev key for swap fee factor
     // @param market the market address to check
     // @return key for swap fee factor
-    function swapFeeFactorKey(address market) internal pure returns (bytes32) {
+    function swapFeeFactorKey(address market, bool forPositiveImpact) internal pure returns (bytes32) {
         return keccak256(abi.encode(
             SWAP_FEE_FACTOR,
-            market
+            market,
+            forPositiveImpact
         ));
     }
 
@@ -818,6 +823,18 @@ library Keys {
     function reserveFactorKey(address market, bool isLong) internal pure returns (bytes32) {
         return keccak256(abi.encode(
             RESERVE_FACTOR,
+            market,
+            isLong
+        ));
+    }
+
+    // @dev key for open interest reserve factor
+    // @param market the market to check
+    // @param isLong whether to get the key for the long or short side
+    // @return key for open interest reserve factor
+    function openInterestReserveFactorKey(address market, bool isLong) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            OPEN_INTEREST_RESERVE_FACTOR,
             market,
             isLong
         ));

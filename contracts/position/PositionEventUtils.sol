@@ -119,9 +119,10 @@ library PositionEventUtils {
         eventData.uintItems.setItem(15, "values.priceImpactDiffUsd", values.priceImpactDiffUsd);
         eventData.uintItems.setItem(16, "orderType", uint256(orderType));
 
-        eventData.intItems.initItems(2);
+        eventData.intItems.initItems(3);
         eventData.intItems.setItem(0, "priceImpactUsd", values.priceImpactUsd);
         eventData.intItems.setItem(1, "basePnlUsd", values.basePnlUsd);
+        eventData.intItems.setItem(2, "uncappedBasePnlUsd", values.uncappedBasePnlUsd);
 
         eventData.boolItems.initItems(1);
         eventData.boolItems.setItem(0, "isLong", position.isLong());
@@ -167,7 +168,8 @@ library PositionEventUtils {
         address market,
         address token,
         uint256 expectedAmount,
-        uint256 availableAmount
+        uint256 amountPaidInCollateralToken,
+        uint256 amountPaidInSecondaryOutputToken
     ) external {
         EventUtils.EventLogData memory eventData;
 
@@ -175,9 +177,10 @@ library PositionEventUtils {
         eventData.addressItems.setItem(0, "market", market);
         eventData.addressItems.setItem(1, "token", token);
 
-        eventData.uintItems.initItems(2);
+        eventData.uintItems.initItems(3);
         eventData.uintItems.setItem(0, "expectedAmount", expectedAmount);
-        eventData.uintItems.setItem(1, "availableAmount", availableAmount);
+        eventData.uintItems.setItem(1, "amountPaidInCollateralToken", amountPaidInCollateralToken);
+        eventData.uintItems.setItem(2, "amountPaidInSecondaryOutputToken", amountPaidInSecondaryOutputToken);
 
         eventEmitter.emitEventLog1(
             "InsufficientFundingFeePayment",
@@ -189,6 +192,7 @@ library PositionEventUtils {
     function emitPositionFeesCollected(
         EventEmitter eventEmitter,
         bytes32 orderKey,
+        bytes32 positionKey,
         address market,
         address collateralToken,
         uint256 tradeSizeUsd,
@@ -198,6 +202,7 @@ library PositionEventUtils {
         _emitPositionFees(
             eventEmitter,
             orderKey,
+            positionKey,
             market,
             collateralToken,
             tradeSizeUsd,
@@ -210,6 +215,7 @@ library PositionEventUtils {
     function emitPositionFeesInfo(
         EventEmitter eventEmitter,
         bytes32 orderKey,
+        bytes32 positionKey,
         address market,
         address collateralToken,
         uint256 tradeSizeUsd,
@@ -219,6 +225,7 @@ library PositionEventUtils {
         _emitPositionFees(
             eventEmitter,
             orderKey,
+            positionKey,
             market,
             collateralToken,
             tradeSizeUsd,
@@ -231,6 +238,7 @@ library PositionEventUtils {
     function _emitPositionFees(
         EventEmitter eventEmitter,
         bytes32 orderKey,
+        bytes32 positionKey,
         address market,
         address collateralToken,
         uint256 tradeSizeUsd,
@@ -240,9 +248,10 @@ library PositionEventUtils {
     ) internal {
         EventUtils.EventLogData memory eventData;
 
-        eventData.bytes32Items.initItems(2);
+        eventData.bytes32Items.initItems(3);
         eventData.bytes32Items.setItem(0, "orderKey", orderKey);
-        eventData.bytes32Items.setItem(1, "referralCode", fees.referral.referralCode);
+        eventData.bytes32Items.setItem(1, "positionKey", positionKey);
+        eventData.bytes32Items.setItem(2, "referralCode", fees.referral.referralCode);
 
         eventData.addressItems.initItems(5);
         eventData.addressItems.setItem(0, "market", market);

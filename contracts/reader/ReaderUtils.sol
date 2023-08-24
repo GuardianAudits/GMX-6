@@ -40,6 +40,7 @@ library ReaderUtils {
         PositionPricingUtils.PositionFees fees;
         ReaderPricingUtils.ExecutionPriceResult executionPriceResult;
         int256 basePnlUsd;
+        int256 uncappedBasePnlUsd;
         int256 pnlAfterPriceImpactUsd;
     }
 
@@ -174,15 +175,26 @@ library ReaderUtils {
             sizeDeltaUsd = positionInfo.position.sizeInUsd();
         }
 
-        PositionPricingUtils.GetPositionFeesParams memory getPositionFeesParams = PositionPricingUtils.GetPositionFeesParams(
+        positionInfo.executionPriceResult = ReaderPricingUtils.getExecutionPrice(
             dataStore,
-            referralStorage,
-            positionInfo.position,
-            cache.collateralTokenPrice,
-            cache.market.longToken,
-            cache.market.shortToken,
-            sizeDeltaUsd,
-            uiFeeReceiver
+            cache.market,
+            prices.indexTokenPrice,
+            positionInfo.position.sizeInUsd(),
+            positionInfo.position.sizeInTokens(),
+            -sizeDeltaUsd.toInt256(),
+            positionInfo.position.isLong()
+        );
+
+        PositionPricingUtils.GetPositionFeesParams memory getPositionFeesParams = PositionPricingUtils.GetPositionFeesParams(
+            dataStore, // dataStore
+            referralStorage, // referralStorage
+            positionInfo.position, // position
+            cache.collateralTokenPrice, // collateralTokenPrice
+            positionInfo.executionPriceResult.priceImpactUsd > 0, // forPositiveImpact
+            cache.market.longToken, // longToken
+            cache.market.shortToken, // shortToken
+            sizeDeltaUsd, // sizeDeltaUsd
+            uiFeeReceiver // uiFeeReceiver
         );
 
         positionInfo.fees = PositionPricingUtils.getPositionFees(getPositionFeesParams);
@@ -245,22 +257,11 @@ library ReaderUtils {
             positionInfo.position
         );
 
-        positionInfo.executionPriceResult = ReaderPricingUtils.getExecutionPrice(
-            dataStore,
-            cache.market,
-            prices.indexTokenPrice,
-            positionInfo.position.sizeInUsd(),
-            positionInfo.position.sizeInTokens(),
-            -sizeDeltaUsd.toInt256(),
-            positionInfo.position.isLong()
-        );
-
-        (positionInfo.basePnlUsd, /* sizeDeltaInTokens */) = PositionUtils.getPositionPnlUsd(
+        (positionInfo.basePnlUsd, positionInfo.uncappedBasePnlUsd, /* sizeDeltaInTokens */) = PositionUtils.getPositionPnlUsd(
             dataStore,
             cache.market,
             prices,
             positionInfo.position,
-            positionInfo.position.isLong() ? prices.indexTokenPrice.min : prices.indexTokenPrice.max,
             sizeDeltaUsd
         );
 

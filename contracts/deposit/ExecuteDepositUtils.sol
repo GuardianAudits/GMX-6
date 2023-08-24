@@ -248,10 +248,13 @@ library ExecuteDepositUtils {
     // @param params ExecuteDepositParams
     // @param _params _ExecuteDepositParams
     function _executeDeposit(ExecuteDepositParams memory params, _ExecuteDepositParams memory _params) internal returns (uint256) {
+        // for markets where longToken == shortToken, the price impact factor should be set to zero
+        // in which case, the priceImpactUsd would always equal zero
         SwapPricingUtils.SwapFees memory fees = SwapPricingUtils.getSwapFees(
             params.dataStore,
             _params.market.marketToken,
             _params.amount,
+            _params.priceImpactUsd > 0, // forPositiveImpact
             _params.uiFeeReceiver
         );
 
@@ -314,6 +317,31 @@ library ExecuteDepositUtils {
             marketTokensSupply
         );
 
+        // the poolValue and marketTokensSupply is cached for the mintAmount calculation below
+        // so the effect of any positive price impact on the poolValue and marketTokensSupply
+        // would not be accounted for
+        //
+        // for most cases, this should not be an issue, since the poolValue and marketTokensSupply
+        // should have been proportionately increased
+        //
+        // e.g. if the poolValue is $100 and marketTokensSupply is 100, and there is a positive price impact
+        // of $10, the poolValue should have increased by $10 and the marketTokensSupply should have been increased by 10
+        //
+        // there is a case where this may be an issue which is when all tokens are withdrawn from an existing market
+        // and the marketTokensSupply is reset to zero, but the poolValue is not entirely zero
+        // the case where this happens should be very rare and during withdrawal the poolValue should be close to zero
+        //
+        // however, in case this occurs, the usdToMarketTokenAmount will mint an additional number of market tokens
+        // proportional to the existing poolValue
+        //
+        // since the poolValue and marketTokensSupply is cached, this could occur once during positive price impact
+        // and again when calculating the mintAmount
+        //
+        // to avoid this, set the priceImpactUsd to be zero for this case
+        if (_params.priceImpactUsd > 0 && marketTokensSupply == 0) {
+            _params.priceImpactUsd = 0;
+        }
+
         if (_params.priceImpactUsd > 0) {
             // when there is a positive price impact factor,
             // tokens from the swap impact pool are used to mint additional market tokens for the user
@@ -368,7 +396,9 @@ library ExecuteDepositUtils {
                 _params.market,
                 _params.tokenOut
             );
-        } else {
+        }
+
+        if (_params.priceImpactUsd < 0) {
             // when there is a negative price impact factor,
             // less of the deposit amount is used to mint market tokens
             // for example, if 10 ETH is deposited and there is a negative price impact
@@ -382,6 +412,7 @@ library ExecuteDepositUtils {
                 _params.tokenInPrice,
                 _params.priceImpactUsd
             );
+
             fees.amountAfterFees -= (-negativeImpactAmount).toUint256();
         }
 
@@ -419,7 +450,7 @@ library ExecuteDepositUtils {
         address expectedOutputToken,
         address uiFeeReceiver
     ) internal returns (uint256) {
-        Market.Props[] memory swapPathMarkets = MarketUtils.getEnabledMarkets(
+        Market.Props[] memory swapPathMarkets = MarketUtils.getSwapPathMarkets(
             params.dataStore,
             swapPath
         );

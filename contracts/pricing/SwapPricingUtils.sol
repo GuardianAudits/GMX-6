@@ -235,11 +235,17 @@ library SwapPricingUtils {
         DataStore dataStore,
         address marketToken,
         uint256 amount,
+        bool forPositiveImpact,
         address uiFeeReceiver
     ) internal view returns (SwapFees memory) {
         SwapFees memory fees;
 
-        uint256 feeFactor = dataStore.getUint(Keys.swapFeeFactorKey(marketToken));
+        // note that since it is possible to incur both positive and negative price impact values
+        // and the negative price impact factor may be larger than the positive impact factor
+        // it is possible for the balance to be improved overall but for the price impact to still be negative
+        // in this case the fee factor for the negative price impact would be charged
+        // a user could split the order into two, to incur a smaller fee, reducing the fee through this should not be a large issue
+        uint256 feeFactor = dataStore.getUint(Keys.swapFeeFactorKey(marketToken, forPositiveImpact));
         uint256 swapFeeReceiverFactor = dataStore.getUint(Keys.SWAP_FEE_RECEIVER_FACTOR);
 
         uint256 feeAmount = Precision.applyFactor(amount, feeFactor);
@@ -256,6 +262,9 @@ library SwapPricingUtils {
         return fees;
     }
 
+    // note that the priceImpactUsd may not be entirely accurate since it is the
+    // base calculation and the actual price impact may be capped by the available
+    // amount in the swap impact pool
     function emitSwapInfo(
         EventEmitter eventEmitter,
         bytes32 orderKey,
@@ -268,7 +277,8 @@ library SwapPricingUtils {
         uint256 amountIn,
         uint256 amountInAfterFees,
         uint256 amountOut,
-        int256 priceImpactUsd
+        int256 priceImpactUsd,
+        int256 priceImpactAmount
     ) internal {
         EventUtils.EventLogData memory eventData;
 
@@ -289,8 +299,9 @@ library SwapPricingUtils {
         eventData.uintItems.setItem(3, "amountInAfterFees", amountInAfterFees);
         eventData.uintItems.setItem(4, "amountOut", amountOut);
 
-        eventData.intItems.initItems(1);
+        eventData.intItems.initItems(2);
         eventData.intItems.setItem(0, "priceImpactUsd", priceImpactUsd);
+        eventData.intItems.setItem(1, "priceImpactAmount", priceImpactAmount);
 
         eventEmitter.emitEventLog1(
             "SwapInfo",
