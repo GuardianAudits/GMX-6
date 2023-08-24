@@ -209,6 +209,8 @@ library Keys {
     bytes32 public constant POOL_AMOUNT = keccak256(abi.encode("POOL_AMOUNT"));
     // @dev key for max pool amount
     bytes32 public constant MAX_POOL_AMOUNT = keccak256(abi.encode("MAX_POOL_AMOUNT"));
+    // @dev key for max pool amount for deposit
+    bytes32 public constant MAX_POOL_AMOUNT_FOR_DEPOSIT = keccak256(abi.encode("MAX_POOL_AMOUNT_FOR_DEPOSIT"));
     // @dev key for max open interest
     bytes32 public constant MAX_OPEN_INTEREST = keccak256(abi.encode("MAX_OPEN_INTEREST"));
     // @dev key for position impact pool amount
@@ -221,6 +223,10 @@ library Keys {
     bytes32 public constant PRICE_FEED_MULTIPLIER = keccak256(abi.encode("PRICE_FEED_MULTIPLIER"));
     // @dev key for price feed heartbeat
     bytes32 public constant PRICE_FEED_HEARTBEAT_DURATION = keccak256(abi.encode("PRICE_FEED_HEARTBEAT_DURATION"));
+    // @dev key for realtime feed id
+    bytes32 public constant REALTIME_FEED_ID = keccak256(abi.encode("REALTIME_FEED_ID"));
+    // @dev key for realtime feed multipler
+    bytes32 public constant REALTIME_FEED_MULTIPLIER = keccak256(abi.encode("REALTIME_FEED_MULTIPLIER"));
     // @dev key for stable price
     bytes32 public constant STABLE_PRICE = keccak256(abi.encode("STABLE_PRICE"));
     // @dev key for reserve factor
@@ -783,6 +789,17 @@ library Keys {
         ));
     }
 
+    // @dev the key for the max amount of pool tokens for deposits
+    // @param market the market for the pool
+    // @param token the token for the pool
+    function maxPoolAmountForDepositKey(address market, address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            MAX_POOL_AMOUNT_FOR_DEPOSIT,
+            market,
+            token
+        ));
+    }
+
     // @dev the key for the max open interest
     // @param market the market for the pool
     // @param isLong whether the key is for the long or short side
@@ -1159,6 +1176,26 @@ library Keys {
     function priceFeedKey(address token) internal pure returns (bytes32) {
         return keccak256(abi.encode(
             PRICE_FEED,
+            token
+        ));
+    }
+
+    // @dev key for realtime feed ID
+    // @param token the token to get the key for
+    // @return key for realtime feed ID
+    function realtimeFeedIdKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            REALTIME_FEED_ID,
+            token
+        ));
+    }
+
+    // @dev key for realtime feed multiplier
+    // @param token the token to get the key for
+    // @return key for realtime feed multiplier
+    function realtimeFeedMultiplierKey(address token) internal pure returns (bytes32) {
+        return keccak256(abi.encode(
+            REALTIME_FEED_MULTIPLIER,
             token
         ));
     }

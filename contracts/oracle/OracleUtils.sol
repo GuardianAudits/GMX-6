@@ -14,6 +14,17 @@ import "../utils/Printer.sol";
 library OracleUtils {
     using Array for uint256[];
 
+    enum PriceSourceType {
+        InternalFeed,
+        PriceFeed,
+        RealtimeFeed
+    }
+
+    enum OracleBlockNumberType {
+        Min,
+        Max
+    }
+
     // @dev SetPricesParams struct for values required in Oracle.setPrices
     // @param signerInfo compacted indexes of signers, the index is used to retrieve
     // the signer address from the OracleStore
@@ -40,6 +51,8 @@ library OracleUtils {
         uint256[] compactedMaxPricesIndexes;
         bytes[] signatures;
         address[] priceFeedTokens;
+        address[] realtimeFeedTokens;
+        bytes[] realtimeFeedData;
     }
 
     struct SimulatePricesParams {
@@ -57,6 +70,31 @@ library OracleUtils {
         uint256 precision;
         uint256 minPrice;
         uint256 maxPrice;
+    }
+
+    // bid: min price, highest buy price
+    // ask: max price, lowest sell price
+    struct RealtimeFeedReport {
+        // The feed ID the report has data for
+        bytes32 feedId;
+        // The time the median value was observed on
+        uint32 observationsTimestamp;
+        // The median value agreed in an OCR round
+        int192 median;
+        // The best bid value agreed in an OCR round
+        // bid is the highest price the a buyer will pay
+        int192 bid;
+        // The best ask value agreed in an OCR round
+        // ask is the lowest price a seller will sell
+        int192 ask;
+        // The upper bound of the block range the median value was observed within
+        uint64 blocknumberUpperBound;
+        // The blockhash for the upper bound of block range (ensures correct blockchain)
+        bytes32 upperBlockhash;
+        // The lower bound of the block range the median value was observed within
+        uint64 blocknumberLowerBound;
+        // The timestamp of the current (upperbound) block number
+        uint64 currentBlockTimestamp;
     }
 
     // compacted prices have a length of 32 bits
@@ -169,11 +207,28 @@ library OracleUtils {
     // @param compactedOracleBlockNumbers the compacted oracle block numbers
     // @param length the length of the uncompacted oracle block numbers
     // @return the uncompacted oracle block numbers
-    function getUncompactedOracleBlockNumbers(uint256[] memory compactedOracleBlockNumbers, uint256 length) internal pure returns (uint256[] memory) {
-        uint256[] memory blockNumbers = new uint256[](length);
+    function getUncompactedOracleBlockNumbers(
+        uint256[] memory compactedOracleBlockNumbers,
+        uint256 compactedOracleBlockNumbersLength,
+        OracleUtils.RealtimeFeedReport[] memory reports,
+        OracleBlockNumberType oracleBlockNumberType
+    ) internal pure returns (uint256[] memory) {
+        uint256[] memory blockNumbers = new uint256[](compactedOracleBlockNumbersLength + reports.length);
 
-        for (uint256 i; i < length; i++) {
+        for (uint256 i; i < compactedOracleBlockNumbersLength; i++) {
             blockNumbers[i] = getUncompactedOracleBlockNumber(compactedOracleBlockNumbers, i);
+        }
+
+        if (oracleBlockNumberType == OracleBlockNumberType.Min) {
+            for (uint256 i; i < reports.length; i++) {
+                blockNumbers[compactedOracleBlockNumbersLength + i] = reports[i].blocknumberLowerBound;
+            }
+        } else if (oracleBlockNumberType == OracleBlockNumberType.Max) {
+            for (uint256 i; i < reports.length; i++) {
+                blockNumbers[compactedOracleBlockNumbersLength + i] = reports[i].blocknumberUpperBound;
+            }
+        } else {
+            revert Errors.UnsupportedOracleBlockNumberType(uint256(oracleBlockNumberType));
         }
 
         return blockNumbers;
