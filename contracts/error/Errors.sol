@@ -85,6 +85,7 @@ library Errors {
     error OpenInterestCannotBeUpdatedForSwapOnlyMarket(address market);
     error MaxOpenInterestExceeded(uint256 openInterest, uint256 maxOpenInterest);
     error MaxPoolAmountExceeded(uint256 poolAmount, uint256 maxPoolAmount);
+    error MaxPoolAmountForDepositExceeded(uint256 poolAmount, uint256 maxPoolAmountForDeposit);
     error UnexpectedBorrowingFactor(uint256 positionBorrowingFactor, uint256 cumulativeBorrowingFactor);
     error UnableToGetBorrowingFactorEmptyPoolUsd();
     error UnableToGetFundingFactorEmptyOpenInterest();
@@ -103,6 +104,14 @@ library Errors {
     error EmptySigner(uint256 signerIndex);
     error InvalidBlockNumber(uint256 minOracleBlockNumber, uint256 currentBlockNumber);
     error InvalidMinMaxBlockNumber(uint256 minOracleBlockNumber, uint256 maxOracleBlockNumber);
+    error HasRealtimeFeedId(address token, bytes32 feedId);
+    error InvalidRealtimeFeedLengths(uint256 tokensLength, uint256 dataLength);
+    error EmptyRealtimeFeedId(address token);
+    error InvalidRealtimeFeedId(address token, bytes32 feedId, bytes32 expectedFeedId);
+    error InvalidRealtimeBidAsk(address token, int192 bid, int192 ask);
+    error InvalidRealtimeBlockHash(address token, bytes32 blockHash, bytes32 expectedBlockHash);
+    error InvalidRealtimePrices(address token, int192 bid, int192 ask);
+    error RealtimeMaxPriceAgeExceeded(address token, uint256 oracleTimestamp, uint256 currentTimestamp);
     error MaxPriceAgeExceeded(uint256 oracleTimestamp, uint256 currentTimestamp);
     error MinOracleSigners(uint256 oracleSigners, uint256 minOracleSigners);
     error MaxOracleSigners(uint256 oracleSigners, uint256 maxOracleSigners);
@@ -110,14 +119,15 @@ library Errors {
     error MinPricesNotSorted(address token, uint256 price, uint256 prevPrice);
     error MaxPricesNotSorted(address token, uint256 price, uint256 prevPrice);
     error EmptyPriceFeedMultiplier(address token);
+    error EmptyRealtimeFeedMultiplier(address token);
     error InvalidFeedPrice(address token, int256 price);
     error PriceFeedNotUpdated(address token, uint256 timestamp, uint256 heartbeatDuration);
     error MaxSignerIndex(uint256 signerIndex, uint256 maxSignerIndex);
     error InvalidOraclePrice(address token);
     error InvalidSignerMinMaxPrice(uint256 minPrice, uint256 maxPrice);
     error InvalidMedianMinMaxPrice(uint256 minPrice, uint256 maxPrice);
-    error DuplicateTokenPrice(address token);
     error NonEmptyTokensWithPrices(uint256 tokensWithPricesLength);
+    error InvalidMinMaxForPrice(address token, uint256 min, uint256 max);
     error EmptyPriceFeed(address token);
     error PriceAlreadySet(address token, uint256 minPrice, uint256 maxPrice);
     error MaxRefPriceDeviationExceeded(
@@ -126,6 +136,7 @@ library Errors {
         uint256 refPrice,
         uint256 maxRefPriceDeviationFactor
     );
+    error InvalidBlockRangeSet(uint256 largestMinBlockNumber, uint256 smallestMaxBlockNumber);
 
     // OracleModule errors
     error InvalidPrimaryPricesForSimulation(uint256 primaryTokensLength, uint256 primaryPricesLength);
@@ -135,6 +146,7 @@ library Errors {
     error EmptyCompactedPrice(uint256 index);
     error EmptyCompactedBlockNumber(uint256 index);
     error EmptyCompactedTimestamp(uint256 index);
+    error UnsupportedOracleBlockNumberType(uint256 oracleBlockNumberType);
     error InvalidSignature(address recoveredSigner, address expectedSigner);
 
     error EmptyPrimaryPrice(address token);

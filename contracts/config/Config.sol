@@ -47,7 +47,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
     function setBool(bytes32 baseKey, bytes memory data, bool value) external onlyConfigKeeper nonReentrant {
         _validateKey(baseKey);
 
-        bytes32 fullKey = keccak256(bytes.concat(baseKey, data));
+        bytes32 fullKey = _getFullKey(baseKey, data);
 
         dataStore.setBool(fullKey, value);
 
@@ -76,7 +76,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
     function setAddress(bytes32 baseKey, bytes memory data, address value) external onlyConfigKeeper nonReentrant {
         _validateKey(baseKey);
 
-        bytes32 fullKey = keccak256(bytes.concat(baseKey, data));
+        bytes32 fullKey = _getFullKey(baseKey, data);
 
         dataStore.setAddress(fullKey, value);
 
@@ -105,7 +105,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
     function setBytes32(bytes32 baseKey, bytes memory data, bytes32 value) external onlyConfigKeeper nonReentrant {
         _validateKey(baseKey);
 
-        bytes32 fullKey = keccak256(bytes.concat(baseKey, data));
+        bytes32 fullKey = _getFullKey(baseKey, data);
 
         dataStore.setBytes32(fullKey, value);
 
@@ -132,7 +132,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
     function setUint(bytes32 baseKey, bytes memory data, uint256 value) external onlyConfigKeeper nonReentrant {
         _validateKey(baseKey);
 
-        bytes32 fullKey = keccak256(bytes.concat(baseKey, data));
+        bytes32 fullKey = _getFullKey(baseKey, data);
 
         _validateRange(baseKey, value);
 
@@ -163,7 +163,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
     function setInt(bytes32 baseKey, bytes memory data, int256 value) external onlyConfigKeeper nonReentrant {
         _validateKey(baseKey);
 
-        bytes32 fullKey = keccak256(bytes.concat(baseKey, data));
+        bytes32 fullKey = _getFullKey(baseKey, data);
 
         dataStore.setInt(fullKey, value);
 
@@ -185,6 +185,14 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
         );
     }
 
+    function _getFullKey(bytes32 baseKey, bytes memory data) internal pure returns (bytes32) {
+        if (data.length == 0) {
+            return baseKey;
+        }
+
+        return keccak256(bytes.concat(baseKey, data));
+    }
+
     // @dev initialize the allowed base keys
     function _initAllowedBaseKeys() internal {
         allowedBaseKeys[Keys.HOLDING_ADDRESS] = true;
@@ -200,6 +208,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
         allowedBaseKeys[Keys.MAX_POSITION_IMPACT_FACTOR_FOR_LIQUIDATIONS] = true;
 
         allowedBaseKeys[Keys.MAX_POOL_AMOUNT] = true;
+        allowedBaseKeys[Keys.MAX_POOL_AMOUNT_FOR_DEPOSIT] = true;
         allowedBaseKeys[Keys.MAX_OPEN_INTEREST] = true;
 
         allowedBaseKeys[Keys.CREATE_DEPOSIT_FEATURE_DISABLED] = true;
@@ -235,7 +244,8 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
         allowedBaseKeys[Keys.EXECUTION_GAS_FEE_MULTIPLIER_FACTOR] = true;
 
         allowedBaseKeys[Keys.DEPOSIT_GAS_LIMIT] = true;
-        allowedBaseKeys[Keys.WITHDRAWAL_GAS_LIMIT] = true;
+        // use Keys.withdrawalGasLimitKey() here because it is double hashed
+        allowedBaseKeys[Keys.withdrawalGasLimitKey()] = true;
         allowedBaseKeys[Keys.SINGLE_SWAP_GAS_LIMIT] = true;
         allowedBaseKeys[Keys.INCREASE_ORDER_GAS_LIMIT] = true;
         allowedBaseKeys[Keys.DECREASE_ORDER_GAS_LIMIT] = true;
@@ -270,11 +280,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
         allowedBaseKeys[Keys.OPEN_INTEREST_RESERVE_FACTOR] = true;
 
         allowedBaseKeys[Keys.MAX_PNL_FACTOR] = true;
-        allowedBaseKeys[Keys.MAX_PNL_FACTOR_FOR_TRADERS] = true;
-        allowedBaseKeys[Keys.MAX_PNL_FACTOR_FOR_ADL] = true;
         allowedBaseKeys[Keys.MIN_PNL_FACTOR_AFTER_ADL] = true;
-        allowedBaseKeys[Keys.MAX_PNL_FACTOR_FOR_DEPOSITS] = true;
-        allowedBaseKeys[Keys.MAX_PNL_FACTOR_FOR_WITHDRAWALS] = true;
 
         allowedBaseKeys[Keys.FUNDING_FACTOR] = true;
         allowedBaseKeys[Keys.STABLE_FUNDING_FACTOR] = true;
@@ -328,7 +334,7 @@ contract Config is ReentrancyGuard, RoleModule, BasicMulticall {
             baseKey == Keys.BORROWING_FEE_RECEIVER_FACTOR ||
             baseKey == Keys.MIN_COLLATERAL_FACTOR ||
             baseKey == Keys.MAX_PNL_FACTOR ||
-            baseKey == Keys.MAX_PNL_FACTOR_FOR_WITHDRAWALS ||
+            baseKey == Keys.MIN_PNL_FACTOR_AFTER_ADL ||
             baseKey == Keys.CLAIMABLE_COLLATERAL_FACTOR
         ) {
             // revert if value > 100%
