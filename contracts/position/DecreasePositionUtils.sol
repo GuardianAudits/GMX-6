@@ -98,12 +98,11 @@ library DecreasePositionUtils {
         // remaining collateral amount and update the order attributes if needed
         if (params.order.sizeDeltaUsd() < params.position.sizeInUsd()) {
             // estimate pnl based on indexTokenPrice
-            (cache.estimatedPositionPnlUsd, /* uint256 sizeDeltaInTokens */) = PositionUtils.getPositionPnlUsd(
+            (cache.estimatedPositionPnlUsd, /* int256 uncappedBasePnlUsd */,  /* uint256 sizeDeltaInTokens */) = PositionUtils.getPositionPnlUsd(
                 params.contracts.dataStore,
                 params.market,
                 cache.prices,
                 params.position,
-                cache.prices.indexTokenPrice.pickPriceForPnl(params.position.isLong(), false),
                 params.position.sizeInUsd()
             );
 
@@ -145,12 +144,7 @@ library DecreasePositionUtils {
                 // the estimatedRemainingCollateralUsd subtracts the initialCollateralDeltaAmount
                 // since the initialCollateralDeltaAmount will be set to zero, the initialCollateralDeltaAmount
                 // should be added back to the estimatedRemainingCollateralUsd
-                Price.Props memory collateralTokenPrice = MarketUtils.getCachedTokenPrice(
-                    params.position.collateralToken(),
-                    params.market,
-                    cache.prices
-                );
-                estimatedRemainingCollateralUsd += (params.order.initialCollateralDeltaAmount() * collateralTokenPrice.min).toInt256();
+                estimatedRemainingCollateralUsd += (params.order.initialCollateralDeltaAmount() * cache.collateralTokenPrice.min).toInt256();
                 params.order.setInitialCollateralDeltaAmount(0);
             }
 
@@ -307,6 +301,7 @@ library DecreasePositionUtils {
         PositionEventUtils.emitPositionFeesCollected(
             params.contracts.eventEmitter,
             params.orderKey,
+            params.positionKey,
             params.market.marketToken,
             params.position.collateralToken(),
             params.order.sizeDeltaUsd(),

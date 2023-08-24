@@ -75,6 +75,7 @@ library Errors {
     error MaxSwapPathLengthExceeded(uint256 swapPathLengh, uint256 maxSwapPathLength);
     error InsufficientPoolAmount(uint256 poolAmount, uint256 amount);
     error InsufficientReserve(uint256 reservedUsd, uint256 maxReservedUsd);
+    error InsufficientReserveForOpenInterest(uint256 reservedUsd, uint256 maxReservedUsd);
     error UnableToGetOppositeToken(address inputToken, address market);
     error UnexpectedTokenForVirtualInventory(address token, address market);
     error EmptyMarketTokenSupply();
@@ -154,6 +155,7 @@ library Errors {
         uint256 triggerPrice,
         uint256 orderType
     );
+    error EmptySizeDeltaInTokens();
     error PriceImpactLargerThanOrderSize(int256 priceImpactUsd, uint256 sizeDeltaUsd);
     error NegativeExecutionPrice(int256 executionPrice, uint256 price, uint256 positionSizeInUsd, int256 priceImpactUsd, uint256 sizeDeltaUsd);
     error OrderNotFulfillableAtAcceptablePrice(uint256 price, uint256 acceptablePrice);
@@ -184,7 +186,6 @@ library Errors {
     // IncreasePositionUtils errors
     error InsufficientCollateralAmount(uint256 collateralAmount, int256 collateralDeltaAmount);
     error InsufficientCollateralUsd(int256 remainingCollateralUsd);
-    error NegativeSizeDeltaInTokens(uint256 baseSizeDeltaInTokens, int256 priceImpactAmount);
 
     // PositionStoreUtils errors
     error PositionNotFound(bytes32 key);

@@ -98,7 +98,7 @@ library DecreasePositionCollateralUtils {
         // the execution price is based on the capped price impact so it may be a better price than what it should be
         // priceImpactDiffUsd is the difference between the maximum price impact and the originally calculated price impact
         // e.g. if the originally calculated price impact is -$100, but the capped price impact is -$80
-        // then priceImpactUsd would be $20
+        // then priceImpactDiffUsd would be $20
         (values.priceImpactUsd, values.priceImpactDiffUsd, values.executionPrice) = getExecutionPrice(params, cache.prices.indexTokenPrice);
 
         // the totalPositionPnl is calculated based on the current indexTokenPrice instead of the executionPrice
@@ -106,24 +106,24 @@ library DecreasePositionCollateralUtils {
         // the sizeDeltaInTokens is calculated as position.sizeInTokens() * sizeDeltaUsd / position.sizeInUsd()
         // the basePnlUsd is the pnl to be realized, and is calculated as:
         // totalPositionPnl * sizeDeltaInTokens / position.sizeInTokens()
-        (values.basePnlUsd, values.sizeDeltaInTokens) = PositionUtils.getPositionPnlUsd(
+        (values.basePnlUsd, values.uncappedBasePnlUsd, values.sizeDeltaInTokens) = PositionUtils.getPositionPnlUsd(
             params.contracts.dataStore,
             params.market,
             cache.prices,
             params.position,
-            cache.prices.indexTokenPrice.pickPrice(!params.position.isLong()), // use the smaller price for long positions and larger price for short positions
             params.order.sizeDeltaUsd()
         );
 
         PositionPricingUtils.GetPositionFeesParams memory getPositionFeesParams = PositionPricingUtils.GetPositionFeesParams(
-            params.contracts.dataStore,
-            params.contracts.referralStorage,
-            params.position,
-            cache.collateralTokenPrice,
-            params.market.longToken,
-            params.market.shortToken,
-            params.order.sizeDeltaUsd(),
-            params.order.uiFeeReceiver()
+            params.contracts.dataStore, // dataStore
+            params.contracts.referralStorage, // referralStorage
+            params.position, // position
+            cache.collateralTokenPrice, // collateralTokenPrice
+            values.priceImpactUsd > 0, // forPositiveImpact
+            params.market.longToken, // longToken
+            params.market.shortToken, // shortToken
+            params.order.sizeDeltaUsd(), // sizeDeltaUsd
+            params.order.uiFeeReceiver() // uiFeeReceiver
         );
 
         PositionPricingUtils.PositionFees memory fees = PositionPricingUtils.getPositionFees(
@@ -245,7 +245,8 @@ library DecreasePositionCollateralUtils {
                 params.market.marketToken,
                 params.position.collateralToken(),
                 fees.funding.fundingFeeAmount,
-                collateralCache.result.amountPaidInCollateralToken
+                collateralCache.result.amountPaidInCollateralToken,
+                collateralCache.result.amountPaidInSecondaryOutputToken
             );
         }
 
@@ -384,49 +385,6 @@ library DecreasePositionCollateralUtils {
             );
         }
 
-        // pay for price impact diff
-        if (values.priceImpactDiffUsd > 0) {
-            (values, collateralCache.result) = payForCost(
-                params,
-                values,
-                cache.prices,
-                cache.collateralTokenPrice,
-                values.priceImpactDiffUsd
-            );
-
-            if (collateralCache.result.amountPaidInCollateralToken > 0) {
-                MarketUtils.incrementClaimableCollateralAmount(
-                    params.contracts.dataStore,
-                    params.contracts.eventEmitter,
-                    params.market.marketToken,
-                    params.position.collateralToken(),
-                    params.order.account(),
-                    collateralCache.result.amountPaidInCollateralToken
-                );
-            }
-
-            if (collateralCache.result.amountPaidInSecondaryOutputToken > 0) {
-                MarketUtils.incrementClaimableCollateralAmount(
-                    params.contracts.dataStore,
-                    params.contracts.eventEmitter,
-                    params.market.marketToken,
-                    values.output.secondaryOutputToken,
-                    params.order.account(),
-                    collateralCache.result.amountPaidInSecondaryOutputToken
-                );
-            }
-
-            if (collateralCache.result.remainingCostUsd > 0) {
-                return handleEarlyReturn(
-                    params,
-                    values,
-                    fees,
-                    collateralCache,
-                    "diff"
-                );
-            }
-        }
-
         // pay for negative price impact
         if (values.priceImpactUsd < 0) {
             (values, collateralCache.result) = payForCost(
@@ -482,10 +440,56 @@ library DecreasePositionCollateralUtils {
             }
         }
 
+        // pay for price impact diff
+        if (values.priceImpactDiffUsd > 0) {
+            (values, collateralCache.result) = payForCost(
+                params,
+                values,
+                cache.prices,
+                cache.collateralTokenPrice,
+                values.priceImpactDiffUsd
+            );
+
+            if (collateralCache.result.amountPaidInCollateralToken > 0) {
+                MarketUtils.incrementClaimableCollateralAmount(
+                    params.contracts.dataStore,
+                    params.contracts.eventEmitter,
+                    params.market.marketToken,
+                    params.position.collateralToken(),
+                    params.order.account(),
+                    collateralCache.result.amountPaidInCollateralToken
+                );
+            }
+
+            if (collateralCache.result.amountPaidInSecondaryOutputToken > 0) {
+                MarketUtils.incrementClaimableCollateralAmount(
+                    params.contracts.dataStore,
+                    params.contracts.eventEmitter,
+                    params.market.marketToken,
+                    values.output.secondaryOutputToken,
+                    params.order.account(),
+                    collateralCache.result.amountPaidInSecondaryOutputToken
+                );
+            }
+
+            if (collateralCache.result.remainingCostUsd > 0) {
+                return handleEarlyReturn(
+                    params,
+                    values,
+                    fees,
+                    collateralCache,
+                    "diff"
+                );
+            }
+        }
+
         // the priceImpactDiffUsd has been deducted from the output amount or the position's collateral
         // to reduce the chance that the position's collateral is reduced by an unexpected amount, adjust the
         // initialCollateralDeltaAmount by the priceImpactDiffAmount
         // this would also help to prevent the position's leverage from being unexpectedly increased
+        //
+        // note that this calculation may not be entirely accurate since it is possible that the priceImpactDiffUsd
+        // could have been paid with one of or a combination of collateral / outputAmount / secondaryOutputAmount
         if (params.order.initialCollateralDeltaAmount() > 0 && values.priceImpactDiffUsd > 0) {
             uint256 initialCollateralDeltaAmount = params.order.initialCollateralDeltaAmount();
 
@@ -529,8 +533,19 @@ library DecreasePositionCollateralUtils {
         PositionUtils.UpdatePositionParams memory params,
         Price.Props memory indexTokenPrice
     ) internal view returns (int256, uint256, uint256) {
-        GetExecutionPriceCache memory cache;
         uint256 sizeDeltaUsd = params.order.sizeDeltaUsd();
+
+        // note that the executionPrice is not validated against the order.acceptablePrice value
+        // if the sizeDeltaUsd is zero
+        // for limit orders the order.triggerPrice should still have been validated
+        if (sizeDeltaUsd == 0) {
+            // decrease order:
+            //     - long: use the smaller price
+            //     - short: use the larger price
+            return (0, 0, indexTokenPrice.pickPrice(!params.position.isLong()));
+        }
+
+        GetExecutionPriceCache memory cache;
 
         cache.priceImpactUsd = PositionPricingUtils.getPriceImpactUsd(
             PositionPricingUtils.GetPriceImpactUsdParams(
@@ -572,6 +587,10 @@ library DecreasePositionCollateralUtils {
             }
         }
 
+        // the executionPrice is calculated after the price impact is capped
+        // so the output amount directly received by the user may not match
+        // the executionPrice, the difference would be in the stored as a
+        // claimable amount
         cache.executionPrice = BaseOrderUtils.getExecutionPriceForDecrease(
             indexTokenPrice,
             params.position.sizeInUsd(),
@@ -661,6 +680,7 @@ library DecreasePositionCollateralUtils {
         PositionEventUtils.emitPositionFeesInfo(
             params.contracts.eventEmitter,
             params.orderKey,
+            params.positionKey,
             params.market.marketToken,
             params.position.collateralToken(),
             params.order.sizeDeltaUsd(),
@@ -682,13 +702,61 @@ library DecreasePositionCollateralUtils {
     function getEmptyFees(
         PositionPricingUtils.PositionFees memory fees
     ) internal pure returns (PositionPricingUtils.PositionFees memory) {
-        // all fees are zeroed even though funding may have been paid
-        // the funding fee amount value may not be accurate in the events due to this
-        PositionPricingUtils.PositionFees memory _fees;
+        PositionPricingUtils.PositionReferralFees memory referral = PositionPricingUtils.PositionReferralFees(
+            bytes32(0), // referralCode
+            address(0), // affiliate
+            address(0), // trader
+            0, // totalRebateFactor
+            0, // traderDiscountFactor
+            0, // totalRebateAmount
+            0, // traderDiscountAmount
+            0 // affiliateRewardAmount
+        );
 
         // allow the accumulated funding fees to still be claimable
-        _fees.funding.claimableLongTokenAmount = fees.funding.claimableLongTokenAmount;
-        _fees.funding.claimableShortTokenAmount = fees.funding.claimableShortTokenAmount;
+        // return the latestFundingFeeAmountPerSize, latestLongTokenClaimableFundingAmountPerSize,
+        // latestShortTokenClaimableFundingAmountPerSize values as these may be used to update the
+        // position's values if the position will be partially closed
+        PositionPricingUtils.PositionFundingFees memory funding = PositionPricingUtils.PositionFundingFees(
+            0, // fundingFeeAmount
+            fees.funding.claimableLongTokenAmount, // claimableLongTokenAmount
+            fees.funding.claimableShortTokenAmount, // claimableShortTokenAmount
+            fees.funding.latestFundingFeeAmountPerSize, // latestFundingFeeAmountPerSize
+            fees.funding.latestLongTokenClaimableFundingAmountPerSize, // latestLongTokenClaimableFundingAmountPerSize
+            fees.funding.latestShortTokenClaimableFundingAmountPerSize // latestShortTokenClaimableFundingAmountPerSize
+        );
+
+        PositionPricingUtils.PositionBorrowingFees memory borrowing = PositionPricingUtils.PositionBorrowingFees(
+            0, // borrowingFeeUsd
+            0, // borrowingFeeAmount
+            0, // borrowingFeeReceiverFactor
+            0 // borrowingFeeAmountForFeeReceiver
+        );
+
+        PositionPricingUtils.PositionUiFees memory ui = PositionPricingUtils.PositionUiFees(
+            address(0), // uiFeeReceiver
+            0, // uiFeeReceiverFactor
+            0 // uiFeeAmount
+        );
+
+        // all fees are zeroed even though funding may have been paid
+        // the funding fee amount value may not be accurate in the events due to this
+        PositionPricingUtils.PositionFees memory _fees = PositionPricingUtils.PositionFees(
+            referral, // referral
+            funding, // funding
+            borrowing, // borrowing
+            ui, // ui
+            fees.collateralTokenPrice, // collateralTokenPrice
+            0, // positionFeeFactor
+            0, // protocolFeeAmount
+            0, // positionFeeReceiverFactor
+            0, // feeReceiverAmount
+            0, // feeAmountForPool
+            0, // positionFeeAmountForPool
+            0, // positionFeeAmount
+            0, // totalCostAmountExcludingFunding
+            0 // totalCostAmount
+        );
 
         return _fees;
     }

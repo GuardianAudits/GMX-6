@@ -156,7 +156,14 @@ library MarketUtils {
         revert Errors.UnableToGetOppositeToken(inputToken, market.marketToken);
     }
 
-    function validateSwapMarket(Market.Props memory market) internal pure {
+    function validateSwapMarket(DataStore dataStore, address marketAddress) internal view {
+        Market.Props memory market = MarketStoreUtils.get(dataStore, marketAddress);
+        validateSwapMarket(dataStore, market);
+    }
+
+    function validateSwapMarket(DataStore dataStore, Market.Props memory market) internal view {
+        validateEnabledMarket(dataStore, market);
+
         if (market.longToken == market.shortToken) {
             revert Errors.InvalidSwapMarket(market.marketToken);
         }
@@ -1322,7 +1329,7 @@ library MarketUtils {
         }
     }
 
-    // @dev validate that the amount of tokens required to be reserved for positions
+    // @dev validate that the amount of tokens required to be reserved
     // is below the configured threshold
     // @param dataStore DataStore
     // @param market the market values
@@ -1349,6 +1356,36 @@ library MarketUtils {
 
         if (reservedUsd > maxReservedUsd) {
             revert Errors.InsufficientReserve(reservedUsd, maxReservedUsd);
+        }
+    }
+
+    // @dev validate that the amount of tokens required to be reserved for open interest
+    // is below the configured threshold
+    // @param dataStore DataStore
+    // @param market the market values
+    // @param prices the prices of the market tokens
+    // @param isLong whether to check the long or short side
+    function validateOpenInterestReserve(
+        DataStore dataStore,
+        Market.Props memory market,
+        MarketPrices memory prices,
+        bool isLong
+    ) internal view {
+        // poolUsd is used instead of pool amount as the indexToken may not match the longToken
+        // additionally, the shortToken may not be a stablecoin
+        uint256 poolUsd = getPoolUsdWithoutPnl(dataStore, market, prices, isLong, false);
+        uint256 reserveFactor = getOpenInterestReserveFactor(dataStore, market.marketToken, isLong);
+        uint256 maxReservedUsd = Precision.applyFactor(poolUsd, reserveFactor);
+
+        uint256 reservedUsd = getReservedUsd(
+            dataStore,
+            market,
+            prices,
+            isLong
+        );
+
+        if (reservedUsd > maxReservedUsd) {
+            revert Errors.InsufficientReserveForOpenInterest(reservedUsd, maxReservedUsd);
         }
     }
 
@@ -1803,6 +1840,15 @@ library MarketUtils {
         return dataStore.getUint(Keys.reserveFactorKey(market, isLong));
     }
 
+    // @dev get the open interest reserve factor for a market
+    // @param dataStore DataStore
+    // @param market the market to check
+    // @param isLong whether to get the value for longs or shorts
+    // @return the open interest reserve factor for a market
+    function getOpenInterestReserveFactor(DataStore dataStore, address market, bool isLong) internal view returns (uint256) {
+        return dataStore.getUint(Keys.openInterestReserveFactorKey(market, isLong));
+    }
+
     // @dev get the max pnl factor for a market
     // @param dataStore DataStore
     // @param pnlFactorType the type of the pnl factor
@@ -1939,7 +1985,7 @@ library MarketUtils {
         uint256 diffUsd,
         uint256 totalOpenInterest
     ) internal view returns (uint256) {
-        // if there is a stable funding factor then used that instead of the open interest
+        // if there is a stable funding factor then use that instead of the open interest
         // dependent funding factor
         uint256 stableFundingFactor = dataStore.getUint(Keys.stableFundingFactorKey(market));
 
@@ -2336,14 +2382,20 @@ library MarketUtils {
         return market;
     }
 
+    function getSwapPathMarket(DataStore dataStore, address marketAddress) internal view returns (Market.Props memory) {
+        Market.Props memory market = MarketStoreUtils.get(dataStore, marketAddress);
+        validateSwapMarket(dataStore, market);
+        return market;
+    }
+
     // @dev get a list of market values based on an input array of market addresses
     // @param swapPath list of market addresses
-    function getEnabledMarkets(DataStore dataStore, address[] memory swapPath) internal view returns (Market.Props[] memory) {
+    function getSwapPathMarkets(DataStore dataStore, address[] memory swapPath) internal view returns (Market.Props[] memory) {
         Market.Props[] memory markets = new Market.Props[](swapPath.length);
 
         for (uint256 i; i < swapPath.length; i++) {
             address marketAddress = swapPath[i];
-            markets[i] = getEnabledMarket(dataStore, marketAddress);
+            markets[i] = getSwapPathMarket(dataStore, marketAddress);
         }
 
         return markets;
@@ -2357,7 +2409,7 @@ library MarketUtils {
 
         for (uint256 i; i < swapPath.length; i++) {
             address marketAddress = swapPath[i];
-            validateEnabledMarket(dataStore, marketAddress);
+            validateSwapMarket(dataStore, marketAddress);
         }
     }
 

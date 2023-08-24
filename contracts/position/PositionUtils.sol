@@ -81,6 +81,7 @@ library PositionUtils {
         uint256 executionPrice;
         uint256 remainingCollateralAmount;
         int256 basePnlUsd;
+        int256 uncappedBasePnlUsd;
         uint256 sizeDeltaInTokens;
         int256 priceImpactUsd;
         uint256 priceImpactDiffUsd;
@@ -113,6 +114,7 @@ library PositionUtils {
     struct GetPositionPnlUsdCache {
         int256 positionValue;
         int256 totalPositionPnl;
+        int256 uncappedTotalPositionPnl;
         address pnlToken;
         uint256 poolTokenAmount;
         uint256 poolTokenPrice;
@@ -121,6 +123,7 @@ library PositionUtils {
         int256 cappedPoolPnl;
         uint256 sizeDeltaInTokens;
         int256 positionPnlUsd;
+        int256 uncappedPositionPnlUsd;
     }
 
     // @dev IsPositionLiquidatableCache struct used in isPositionLiquidatable
@@ -140,6 +143,7 @@ library PositionUtils {
         uint256 collateralUsd;
         int256 usdDeltaForPriceImpact;
         int256 priceImpactUsd;
+        bool hasPositiveImpact;
         int256 minCollateralUsd;
         int256 minCollateralUsdForLeverage;
         int256 remainingCollateralUsd;
@@ -161,28 +165,28 @@ library PositionUtils {
     // @param sizeDeltaUsd the change in position size
     // @param indexTokenPrice the price of the index token
     //
-    // @return (positionPnlUsd, sizeDeltaInTokens)
+    // @return (positionPnlUsd, uncappedPositionPnlUsd, sizeDeltaInTokens)
     function getPositionPnlUsd(
         DataStore dataStore,
         Market.Props memory market,
         MarketUtils.MarketPrices memory prices,
         Position.Props memory position,
-        uint256 executionPrice,
         uint256 sizeDeltaUsd
-    ) public view returns (int256, uint256) {
+    ) public view returns (int256, int256, uint256) {
         GetPositionPnlUsdCache memory cache;
+
+        uint256 executionPrice = prices.indexTokenPrice.pickPriceForPnl(position.isLong(), false);
 
         // position.sizeInUsd is the cost of the tokens, positionValue is the current worth of the tokens
         cache.positionValue = (position.sizeInTokens() * executionPrice).toInt256();
         cache.totalPositionPnl = position.isLong() ? cache.positionValue - position.sizeInUsd().toInt256() : position.sizeInUsd().toInt256() - cache.positionValue;
+        cache.uncappedTotalPositionPnl = cache.totalPositionPnl;
 
         if (cache.totalPositionPnl > 0) {
             cache.pnlToken = position.isLong() ? market.longToken : market.shortToken;
             cache.poolTokenAmount = MarketUtils.getPoolAmount(dataStore, market, cache.pnlToken);
             cache.poolTokenPrice = position.isLong() ? prices.longTokenPrice.min : prices.shortTokenPrice.min;
             cache.poolTokenUsd = cache.poolTokenAmount * cache.poolTokenPrice;
-            // use the indexTokenPrice instead of the executionPrice to calculate the pnl
-            // as the executionPrice has been adjusted by the price impact for the current order
             cache.poolPnl = MarketUtils.getPnl(
                 dataStore,
                 market,
@@ -216,8 +220,9 @@ library PositionUtils {
         }
 
         cache.positionPnlUsd = Precision.mulDiv(cache.totalPositionPnl, cache.sizeDeltaInTokens, position.sizeInTokens());
+        cache.uncappedPositionPnlUsd = Precision.mulDiv(cache.uncappedTotalPositionPnl, cache.sizeDeltaInTokens, position.sizeInTokens());
 
-        return (cache.positionPnlUsd, cache.sizeDeltaInTokens);
+        return (cache.positionPnlUsd, cache.uncappedPositionPnlUsd, cache.sizeDeltaInTokens);
     }
 
     // @dev get the key for a position
@@ -309,12 +314,11 @@ library PositionUtils {
     ) public view returns (bool, string memory) {
         IsPositionLiquidatableCache memory cache;
 
-        (cache.positionPnlUsd, ) = getPositionPnlUsd(
+        (cache.positionPnlUsd, /* int256 uncappedBasePnlUsd */,  /* uint256 sizeDeltaInTokens */) = getPositionPnlUsd(
             dataStore,
             market,
             prices,
             position,
-            prices.indexTokenPrice.pickPriceForPnl(position.isLong(), false),
             position.sizeInUsd()
         );
 
@@ -337,6 +341,8 @@ library PositionUtils {
                 position.isLong()
             )
         );
+
+        cache.hasPositiveImpact = cache.priceImpactUsd > 0;
 
         // even if there is a large positive price impact, positions that would be liquidated
         // if the positive price impact is reduced should not be allowed to be created
@@ -361,13 +367,14 @@ library PositionUtils {
         }
 
         PositionPricingUtils.GetPositionFeesParams memory getPositionFeesParams = PositionPricingUtils.GetPositionFeesParams(
-            dataStore,
-            referralStorage,
-            position,
-            cache.collateralTokenPrice,
-            market.longToken,
-            market.shortToken,
-            position.sizeInUsd(),
+            dataStore, // dataStore
+            referralStorage, // referralStorage
+            position, // position
+            cache.collateralTokenPrice, //collateralTokenPrice
+            cache.hasPositiveImpact, // forPositiveImpact
+            market.longToken, // longToken
+            market.shortToken, // shortToken
+            position.sizeInUsd(), // sizeDeltaUsd
             address(0) // uiFeeReceiver
         );
 
@@ -412,6 +419,26 @@ library PositionUtils {
         return (false, "");
     }
 
+    // fees and price impact are not included for the willPositionCollateralBeSufficient validation
+    // this is because this validation is meant to guard against a specific scenario of price impact
+    // gaming
+    //
+    // price impact could be gamed by opening high leverage positions, if the price impact
+    // that should be charged is higher than the amount of collateral in the position
+    // then a user could pay less price impact than what is required, and there is a risk that
+    // price manipulation could be profitable if the price impact cost is less than it should be
+    //
+    // this check should be sufficient even without factoring in fees as fees should have a minimal impact
+    // it may be possible that funding or borrowing fees are accumulated and need to be deducted which could
+    // lead to a user paying less price impact than they should, however gaming of this form should be difficult
+    // since the funding and borrowing fees would still add up for the user's cost
+    //
+    // another possibility would be if a user opens a large amount of both long and short positions, and
+    // funding fees are paid from one side to the other, but since most of the open interest is owned by the
+    // user the user earns most of the paid cost, in this scenario the borrowing fees should still be significant
+    // since some time would be required for the funding fees to accumulate
+    //
+    // fees and price impact are validated in the validatePosition check
     function willPositionCollateralBeSufficient(
         DataStore dataStore,
         Market.Props memory market,
@@ -441,14 +468,7 @@ library PositionUtils {
         // the min collateral factor will increase as the open interest for a market increases
         // this may lead to previously created limit increase orders not being executable
         //
-        // price impact could be gamed by opening high leverage positions, if the price impact
-        // that should be charged is higher than the amount of collateral in the position
-        // then a user could pay less price impact than what is required
-        //
-        // this check helps to prevent gaming of price impact
-        //
-        // since this is the primary reason for this check, the position's pnl is not factored into the
-        // remainingCollateralUsd value
+        // the position's pnl is not factored into the remainingCollateralUsd value, since
         // factoring in a positive pnl may allow the user to manipulate price and bypass this check
         // it may be useful to factor in a negative pnl for this check, this can be added if required
         uint256 minCollateralFactor = MarketUtils.getMinCollateralFactorForOpenInterest(
@@ -482,13 +502,22 @@ library PositionUtils {
             prices
         );
 
-        // update the cumulative borrowing factor for the market
+        // update the cumulative borrowing factor for longs
         MarketUtils.updateCumulativeBorrowingFactor(
             params.contracts.dataStore,
             params.contracts.eventEmitter,
             params.market,
             prices,
-            params.order.isLong()
+            true // isLong
+        );
+
+        // update the cumulative borrowing factor for shorts
+        MarketUtils.updateCumulativeBorrowingFactor(
+            params.contracts.dataStore,
+            params.contracts.eventEmitter,
+            params.market,
+            prices,
+            false // isLong
         );
     }
 
